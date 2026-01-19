@@ -1,6 +1,7 @@
 import './Map.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import KommuneLayer from './KommuneLayer';
 
 
 function Map() {
@@ -16,6 +17,7 @@ function Map() {
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
+      <KommuneLayer />
     </MapContainer>
   )
 }
