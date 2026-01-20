@@ -7,7 +7,7 @@ function KommuneLayer() {
   const [data, setData] = useState<FeatureCollection | null>(null);
 
   useEffect(() => {
-    fetch('/kommuner_liten.geojson')
+    fetch('/data/kommune_simpl_25_25k.geojson')
       .then((res) => res.json())
       .then((geojson) => setData(geojson));
   }, []);
