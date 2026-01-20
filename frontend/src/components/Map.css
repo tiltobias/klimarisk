@@ -1,4 +1,4 @@
 .klimamap {
-  height: calc(100vh - 4rem);
+  height: calc(100vh - 4rem - 1.5rem);
   width: 800px;
 }
