@@ -15,9 +15,13 @@ Master thesis
 ```bash
 
   cd klimarisk # Navigate to project root
+  
   python -m venv .venv
   .venv\Scripts\activate # On Windows
   source .venv/bin/activate # On Unix or MacOS
+  
   pip install -r scripts/requirements.txt
+
+  python scripts/prepare_data.py
 
 ```

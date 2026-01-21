@@ -3,6 +3,8 @@ import json
 
 file = "./scripts/kommunerangering+2024+-+datasett.xlsx"
 sheet = "KomRang17_2000"
+# out_path = "./scripts/kommune_data.json"
+out_path = "./frontend/public/data/kommune_data.json"
 
 
 df = pd.read_excel(file, sheet_name=sheet)
@@ -22,5 +24,5 @@ for index, row in df.iterrows():
 
 # print(kommune_data)
 
-with open('./scripts/kommune_data.json', 'w', encoding='utf-8') as f:
+with open(out_path, 'w', encoding='utf-8') as f:
     json.dump(kommune_data, f, ensure_ascii=False, indent=2)
