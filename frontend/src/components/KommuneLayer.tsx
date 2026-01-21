@@ -5,21 +5,33 @@ import type { FeatureCollection, Feature, Polygon, MultiPolygon, Geometry } from
 import type { Polygon as LeafletPolygon } from 'leaflet';
 
 type KommuneProperties = { 
-  kommunenummer: number,
+  kommunenummer: number, // TODO: change to string and keep consistent (with leading zeros)
   KomNavn: string
 };
-
 type KommuneFeature = Feature<Polygon | MultiPolygon, KommuneProperties>;
+type KommuneGeoJSON = FeatureCollection<Polygon | MultiPolygon, KommuneProperties>;
 
+type KommuneData = Record<string, { 
+  Navn: string; 
+  Risk2000: number 
+}>;
 
 function KommuneLayer() {
 
-  const [data, setData] = useState<FeatureCollection<Polygon | MultiPolygon> | null>(null);
+  const [komGeoJSON, setKomGeoJSON] = useState<KommuneGeoJSON | null>(null);
 
   useEffect(() => {
     fetch('/data/kommune_simpl_25_25k.geojson')
       .then((res) => res.json())
-      .then((geojson) => setData(geojson));
+      .then((geojson) => setKomGeoJSON(geojson));
+  }, []);
+
+  const [komData, setKomData] = useState<KommuneData | null>(null);
+
+  useEffect(() => {
+    fetch('/data/kommune_data.json')
+      .then((res) => res.json())
+      .then((data) => setKomData(data));
   }, []);
 
 
@@ -29,7 +41,7 @@ function KommuneLayer() {
     layer.on({
       mouseover: () => {
         setHighlightedKommune(feature.properties.kommunenummer);
-        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}`;
+        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, Risk: ${komData ? komData[feature.properties.kommunenummer.toString()]?.Risk2000 : 'N/A'}`;
       },
       mouseout: () => {
         setHighlightedKommune(null);
@@ -38,20 +50,31 @@ function KommuneLayer() {
     });
   };
 
+  const getColor = (komId: string) => {
+    if (!komData) return 'gray';
+    const risk = komData[komId]?.Risk2000;
+    if (risk === undefined) return 'gray';
+    if (risk < 100) return 'green';
+    if (risk < 120) return 'yellow';
+    if (risk < 140) return 'orange';
+    return 'red';
+  }
+
   const style = (feature?: Feature<Geometry, unknown>) => {
 
     const props = feature?.properties as KommuneProperties | undefined;
 
     return {
-      fillColor: props?.kommunenummer === highlightedKommune ? 'yellow' : 'blue',
-      weight: 1,
+      fillColor: getColor(props?.kommunenummer.toString() || ''),
+      weight: props?.kommunenummer === highlightedKommune ? 3 : 0.5,
       opacity: 1,
-      color: 'white',
-      fillOpacity: 0.5
+      color: 'black',
+      fillOpacity: 0.5,
+      // TODO: fix zindex issue, border goes under neighbour polygons
     };
   }
 
-  return data ? <GeoJSON data={data} onEachFeature={onEachFeature} style={style} /> : null;
+  return komGeoJSON ? <GeoJSON data={komGeoJSON} onEachFeature={onEachFeature} style={style} /> : null;
 }
 
 export default KommuneLayer;

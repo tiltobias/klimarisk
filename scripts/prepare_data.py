@@ -10,7 +10,7 @@ df = pd.read_excel(file, sheet_name=sheet)
 kommune_data = {}
 
 for index, row in df.iterrows():
-    iKomNr = row['iKomNr']
+    iKomNr = str(row['iKomNr']).zfill(4) # Ensure 4-digit kommune number #TODO: settle on format, keep consistent with frontend
     kommune_data[iKomNr] = {
         'Navn': row['KomNavn'],
         'Risk2000': row['Risk2000'],
