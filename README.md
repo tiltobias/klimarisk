@@ -14,10 +14,10 @@ Master thesis
 **Using Python Scripts with dependencies:**
 ```bash
 
-  cd scripts
+  cd klimarisk # Navigate to project root
   python -m venv .venv
   .venv\Scripts\activate # On Windows
   source .venv/bin/activate # On Unix or MacOS
-  pip install -r requirements.txt
+  pip install -r scripts/requirements.txt
 
 ```
