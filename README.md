@@ -2,28 +2,8 @@
 Master thesis
 
 
-
-**Creating Vite React project:**
-```powershell
-
-npm create vite
-
-> npx
-> cva
-
-│
-◇  Project name:
-│  frontend
-│
-◇  Select a framework:
-│  React
-│
-◇  Select a variant:
-│  TypeScript + SWC
-│
-◇  Scaffolding project in C:\Users\[...]\klimarisk\frontend...
-│
-└  Done. Now run:
+**Running React Frontend with Vite:**
+```bash
 
   cd frontend
   npm install
@@ -31,3 +11,13 @@ npm create vite
 
 ```
 
+**Using Python Scripts with dependencies:**
+```bash
+
+  cd scripts
+  python -m venv .venv
+  .venv\Scripts\activate # On Windows
+  source .venv/bin/activate # On Unix or MacOS
+  pip install -r requirements.txt
+
+```
