@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react';
 import { GeoJSON } from 'react-leaflet';
+import useDataStore from '../hooks/useDataStore';
 
 import type { FeatureCollection, Feature, Polygon, MultiPolygon, Geometry } from 'geojson';
 import type { Polygon as LeafletPolygon } from 'leaflet';
 
 type KommuneProperties = { 
-  kommunenummer: number, // TODO: change to string and keep consistent (with leading zeros)
+  kommunenummer: string, // TODO: change to string and keep consistent (with leading zeros)
   KomNavn: string
 };
 type KommuneFeature = Feature<Polygon | MultiPolygon, KommuneProperties>;
 type KommuneGeoJSON = FeatureCollection<Polygon | MultiPolygon, KommuneProperties>;
 
-type KommuneData = Record<string, { 
-  Navn: string; 
-  Risk2000: number 
-}>;
 
 function KommuneLayer() {
 
@@ -26,22 +23,17 @@ function KommuneLayer() {
       .then((geojson) => setKomGeoJSON(geojson));
   }, []);
 
-  const [komData, setKomData] = useState<KommuneData | null>(null);
-
-  useEffect(() => {
-    fetch('/data/kommune_data.json')
-      .then((res) => res.json())
-      .then((data) => setKomData(data));
-  }, []);
-
-
-  const [highlightedKommune, setHighlightedKommune] = useState<number | null>(null);
+  const {
+    data: komData,
+    highlightedKommune,
+    setHighlightedKommune,
+  } = useDataStore();
 
   const onEachFeature = (feature: KommuneFeature, layer: LeafletPolygon) => {
     layer.on({
       mouseover: () => {
         setHighlightedKommune(feature.properties.kommunenummer);
-        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, Risk: ${komData ? komData[feature.properties.kommunenummer.toString()]?.Risk2000 : 'N/A'}`;
+        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, ${komData ? komData[feature.properties.kommunenummer]?.sumMetric.name : 'N/A'}: ${komData ? komData[feature.properties.kommunenummer]?.sumMetric.value : 'N/A'}`;
       },
       mouseout: () => {
         setHighlightedKommune(null);
@@ -52,7 +44,7 @@ function KommuneLayer() {
 
   const getColor = (komId: string) => {
     if (!komData) return 'gray';
-    const risk = komData[komId]?.Risk2000;
+    const risk = komData[komId]?.sumMetric.value;
     if (risk === undefined) return 'gray';
     if (risk < 100) return 'green';
     if (risk < 120) return 'yellow';
