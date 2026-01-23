@@ -1,0 +1,98 @@
+{
+  "name": "Samlet indeks for klimarisiko",
+  "col_name": "Risk2000",
+  "elements": [
+    {
+      "name": "Hazard",
+      "col_name": "Hazard2000_0_100",
+      "metrics": [
+        {
+          "name": "Råtefare",
+          "col_name": "fRåtefare2000_0_100"
+        },
+        {
+          "name": "Snødypde 30 cm eller mer",
+          "col_name": "fSD30p2000_0_100"
+        },
+        {
+          "name": "Stormflofare",
+          "col_name": "fStormflo2000_0_100"
+        },
+        {
+          "name": "Flomfare",
+          "col_name": "fFlom2000_0_100"
+        }
+      ]
+    },
+    {
+      "name": "Vulnerability",
+      "col_name": "Vulner2000_0_100",
+      "metrics": [
+        {
+          "name": "Befolkningstetthet",
+          "col_name": "sBefTett2000_0_100"
+        },
+        {
+          "name": "Andel yrkesaktive i primærnæringene",
+          "col_name": "sPrim2000_0_100"
+        },
+        {
+          "name": "Mobilitetssårbarhet",
+          "col_name": "sMob_2000_0_100"
+        },
+        {
+          "name": "Andel sårbare befolkningsgrupper",
+          "col_name": "sVulPop2000_0_100"
+        }
+      ]
+    },
+    {
+      "name": "Exposure",
+      "col_name": "Exposure2000_0_100",
+      "metrics": [
+        {
+          "name": "Skade på hus grunnet storm",
+          "col_name": "eStorm2000_0_100"
+        },
+        {
+          "name": "Skade på hus grunnet stormflo",
+          "col_name": "eStormflo2000_0_100"
+        },
+        {
+          "name": "Skade på hus grunnet flom",
+          "col_name": "eFlom2000_0_100"
+        },
+        {
+          "name": "Skade på hus grunnet skred",
+          "col_name": "eSkred2000_0_100"
+        },
+        {
+          "name": "Skade på hus grunnet overvann",
+          "col_name": "eOvervann2000_0_100"
+        }
+      ]
+    },
+    {
+      "name": "Respons",
+      "col_name": "Respons2000_0_100",
+      "metrics": [
+        {
+          "name": "Lokale tiltak med statlig støtte",
+          "col_name": "rMaxTilskudd_0_100"
+        },
+        {
+          "name": "Vurdering av klimarisiko i kommunal planlegging",
+          "col_name": "rDSB_0_100"
+        },
+        {
+          "name": "Egne tiltak for klimatilpasning",
+          "col_name": "rTiltak_0_100"
+        },
+        {
+          "name": "Bærekraftsinnretning av arbeidet med klimatilpasning",
+          "col_name": "rBerekraft_0_100"
+        }
+      ]
+    }
+  ]
+}
