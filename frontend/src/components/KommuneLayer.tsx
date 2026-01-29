@@ -27,6 +27,7 @@ function KommuneLayer() {
     data: komData,
     highlightedKommune,
     setHighlightedKommune,
+    setSelectedKommune,
   } = useDataStore();
 
   const onEachFeature = (feature: KommuneFeature, layer: LeafletPolygon) => {
@@ -38,6 +39,9 @@ function KommuneLayer() {
       mouseout: () => {
         setHighlightedKommune(null);
         document.getElementById("app-title")!.innerText = `Klimarisk`;
+      },
+      click: () => {
+        setSelectedKommune(feature.properties.kommunenummer);
       }
     });
   };

@@ -7,6 +7,14 @@ type KommuneData = Record<string, {
     name: string;
     value: number 
   };
+  elements: Array<{ 
+    name: string; 
+    value: number;
+    metrics: Array<{ 
+      name: string; 
+      value: number 
+    }>;
+  }>;
 }>;
 
 interface DataStore {
@@ -36,7 +44,13 @@ const useDataStore = create<DataStore>((set) => ({
   
   selectedKommune: null,
   
-  setSelectedKommune: (kommune) => set({ selectedKommune: kommune }),
+  setSelectedKommune: (kommune) => set((state) => {
+    if (state.selectedKommune === kommune) {
+      return { selectedKommune: null };
+    }
+    return { selectedKommune: kommune };
+  }),
+  
 }));
 
 export default useDataStore;

@@ -2,6 +2,7 @@ import './App.css'
 import { useEffect } from 'react';
 import useDataStore from './hooks/useDataStore'
 import Map from './components/Map'
+import StatList from './components/StatList';
 
 function App() {
 
@@ -16,8 +17,13 @@ function App() {
 
   return (
     <>
-      <span id="app-title">Klimarisk</span>
-      <Map />
+      <header>
+        <h1 id="app-title">Klimarisk</h1>
+      </header>
+      <div className="dashboard">
+        <Map />
+        <StatList />
+      </div>
     </>
   )
 }
