@@ -4,6 +4,7 @@ import useDataStore from '../hooks/useDataStore';
 
 import type { FeatureCollection, Feature, Polygon, MultiPolygon, Geometry } from 'geojson';
 import type { Polygon as LeafletPolygon } from 'leaflet';
+import { getPublicUrl } from '../hooks/getPublicUrl';
 
 type KommuneProperties = { 
   kommunenummer: string, // TODO: change to string and keep consistent (with leading zeros)
@@ -18,7 +19,7 @@ function KommuneLayer() {
   const [komGeoJSON, setKomGeoJSON] = useState<KommuneGeoJSON | null>(null);
 
   useEffect(() => {
-    fetch('/data/kommune_simpl_25_25k.geojson')
+    fetch(getPublicUrl('data/kommune_simpl_25_25k.geojson'))
       .then((res) => res.json())
       .then((geojson) => setKomGeoJSON(geojson));
   }, []);

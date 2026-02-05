@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { getPublicUrl } from './getPublicUrl';
 
 
 type KommuneData = Record<string, { 
@@ -33,7 +34,7 @@ const useDataStore = create<DataStore>((set) => ({
   data: null,
   
   fetchData: async () => {
-    const res = await fetch('/data/kommune_data.json');
+    const res = await fetch(getPublicUrl('/data/kommune_data.json'));
     const data: KommuneData = await res.json();
     set({ data });
   },
@@ -50,7 +51,7 @@ const useDataStore = create<DataStore>((set) => ({
     }
     return { selectedKommune: kommune };
   }),
-  
+
 }));
 
 export default useDataStore;

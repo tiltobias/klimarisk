@@ -1,7 +1,7 @@
 import useDataStore from "../hooks/useDataStore";
 
 function StatList() {
-  
+
   const { 
     data: komData,
     selectedKommune
@@ -29,7 +29,7 @@ function StatList() {
           </li>
         </ul>
       ) : (
-        <p>Hover over a kommune to see details.</p>
+        <p>Click on a kommune to see details.</p>
       )
       }
     </div>
