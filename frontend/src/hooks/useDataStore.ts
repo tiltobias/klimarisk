@@ -27,9 +27,13 @@ interface DataStore {
   
   selectedKommune: string | null;
   setSelectedKommune: (kommune: string | null) => void;
+
+  getTotalRisk: () => number;
+
+  getElementTotal: (elementIndex: number) => number; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 }
 
-const useDataStore = create<DataStore>((set) => ({
+const useDataStore = create<DataStore>((set, get) => ({
   
   data: null,
   
@@ -51,6 +55,33 @@ const useDataStore = create<DataStore>((set) => ({
     }
     return { selectedKommune: kommune };
   }),
+
+  getTotalRisk: () => {
+    const { data, selectedKommune } = get()
+    if (!data || !selectedKommune) return -99999
+    const elements = data[selectedKommune].elements
+    return elements.reduce((acc, val) => acc + val.value, 0)
+  },
+
+  getElementTotal: (elementIndex) => {
+    const { data, selectedKommune } = get()
+    if (!data || !selectedKommune) return -99999
+    const metrics = data[selectedKommune].elements[elementIndex].metrics
+
+    const tmpRes = metrics.reduce((acc, val) => acc + val.value, 0)
+    let min = 401
+    let max = -1
+    for (const kom of Object.values(data)) {
+      const calculatedRisk = kom.elements[elementIndex].metrics.reduce((acc, val) => acc + val.value, 0)
+      if (calculatedRisk < min) {
+        min = calculatedRisk
+      }
+      if (calculatedRisk > max) {
+        max = calculatedRisk
+      }
+    }
+    return (tmpRes - min)/(max - min)*100
+  }
 
 }));
 
