@@ -30,7 +30,7 @@ interface DataStore {
 
   getTotalRisk: () => number;
 
-  getElementTotal: (elementIndex: number) => number; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
+  getElementTotal: (elementIndex: number) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 }
 
 const useDataStore = create<DataStore>((set, get) => ({
@@ -65,12 +65,12 @@ const useDataStore = create<DataStore>((set, get) => ({
 
   getElementTotal: (elementIndex) => {
     const { data, selectedKommune } = get()
-    if (!data || !selectedKommune) return -99999
+    if (!data || !selectedKommune) return null
     const metrics = data[selectedKommune].elements[elementIndex].metrics
 
     const tmpRes = metrics.reduce((acc, val) => acc + val.value, 0)
-    let min = 401
-    let max = -1
+    let min = Infinity
+    let max = -Infinity
     for (const kom of Object.values(data)) {
       const calculatedRisk = kom.elements[elementIndex].metrics.reduce((acc, val) => acc + val.value, 0)
       if (calculatedRisk < min) {
@@ -80,6 +80,7 @@ const useDataStore = create<DataStore>((set, get) => ({
         max = calculatedRisk
       }
     }
+    if (min === max) return null
     return (tmpRes - min)/(max - min)*100
   }
 

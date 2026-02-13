@@ -19,7 +19,7 @@ function StatList() {
           <li><strong>Risk:</strong> {komData[selectedKommune].sumMetric.value.toFixed(3)} == {getTotalRisk().toFixed(3)}
             <ul>
               {komData[selectedKommune].elements.map((element, index) => (
-                <li key={index}><strong>{element.name}:</strong> {element.value.toFixed(3)} == {getElementTotal(index).toFixed(3)}
+                <li key={index}><strong>{element.name}:</strong> {element.value.toFixed(3)} == {getElementTotal(index)?.toFixed(3) ?? "-"}
                   <ul>
                     {element.metrics.map((metric, mIndex) => (
                       <li key={mIndex}><strong>{metric.name}:</strong> {metric.value.toFixed(0)}</li>
