@@ -1,34 +1,47 @@
 import { create } from 'zustand';
 import { getPublicUrl } from './getPublicUrl';
 
+type Metric = {
+  name: string; 
+  value: number;
+}
 
-type KommuneData = Record<string, { 
-  Navn: string; 
-  sumMetric: { 
-    name: string;
-    value: number 
-  };
-  elements: Array<{ 
-    name: string; 
-    value: number;
-    metrics: Array<{ 
-      name: string; 
-      value: number 
-    }>;
-  }>;
-}>;
+type Element = {
+  name: string;
+  value: number;
+  metrics: Metric[];
+}
+
+type Kommune = { 
+  name: string; 
+  sumMetric: Metric;
+  elements: Element[];
+};
+
+export type Year = string & { readonly __brand: unique symbol};
+export type KommuneNr = string & { readonly __brand: unique symbol};
+
+type RiskData = {
+  [year: Year]: {
+    [kommuneNr: KommuneNr]: Kommune
+  }
+}
+
 
 interface DataStore {
-  data: KommuneData | null;
+  data: RiskData | null;
   fetchData: () => Promise<void>;
 
-  highlightedKommune: string | null;
-  setHighlightedKommune: (kommune: string | null) => void;
-  
-  selectedKommune: string | null;
-  setSelectedKommune: (kommune: string | null) => void;
+  selectedYear: Year | null;
+  setSelectedYear: (year: Year) => void;
 
-  getTotalRisk: () => number;
+  highlightedKommune: KommuneNr | null;
+  setHighlightedKommune: (kommune: KommuneNr | null) => void;
+  
+  selectedKommune: KommuneNr | null;
+  setSelectedKommune: (kommune: KommuneNr | null) => void;
+
+  getTotalRisk: () => number | null;
 
   getElementTotal: (elementIndex: number) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 }
@@ -39,9 +52,14 @@ const useDataStore = create<DataStore>((set, get) => ({
   
   fetchData: async () => {
     const res = await fetch(getPublicUrl('/data/kommune_data.json'));
-    const data: KommuneData = await res.json();
-    set({ data });
+    const data: RiskData = await res.json();
+    const selectedYear = Object.keys(data)[0] as Year // TODO: Make default year property in kommune_data_model.json?
+    set({ data, selectedYear });
   },
+
+  selectedYear: null,
+
+  setSelectedYear: (year) => set({ selectedYear: year }),
 
   highlightedKommune: null,
   
@@ -57,29 +75,32 @@ const useDataStore = create<DataStore>((set, get) => ({
   }),
 
   getTotalRisk: () => {
-    const { data, selectedKommune } = get()
-    if (!data || !selectedKommune) return -99999
-    const elements = data[selectedKommune].elements
+    const { data, selectedKommune, selectedYear } = get()
+    if (!data || !selectedKommune || !selectedYear) return null
+    const elements = data[selectedYear][selectedKommune].elements
     return elements.reduce((acc, val) => acc + val.value, 0)
   },
 
   getElementTotal: (elementIndex) => {
-    const { data, selectedKommune } = get()
-    if (!data || !selectedKommune) return null
-    const metrics = data[selectedKommune].elements[elementIndex].metrics
+    const { data, selectedKommune, selectedYear } = get()
+    if (!data || !selectedKommune || !selectedYear) return null
+    const metrics = data[selectedYear][selectedKommune].elements[elementIndex].metrics
 
     const tmpRes = metrics.reduce((acc, val) => acc + val.value, 0)
     let min = Infinity
     let max = -Infinity
-    for (const kom of Object.values(data)) {
-      const calculatedRisk = kom.elements[elementIndex].metrics.reduce((acc, val) => acc + val.value, 0)
-      if (calculatedRisk < min) {
-        min = calculatedRisk
-      }
-      if (calculatedRisk > max) {
-        max = calculatedRisk
+    for (const year of Object.values(data)) {
+      for (const kom of Object.values(year)) {
+        const calculatedRisk = kom.elements[elementIndex].metrics.reduce((acc, val) => acc + val.value, 0)
+        if (calculatedRisk < min) {
+          min = calculatedRisk
+        }
+        if (calculatedRisk > max) {
+          max = calculatedRisk
+        }
       }
     }
+    
     if (min === max) return null
     return (tmpRes - min)/(max - min)*100
   }

@@ -1,6 +1,20 @@
 {
   "name": "Samlet indeks for klimarisiko",
   "col_name": "Risk2000",
+  "years": [
+    {
+      "name": "2000",
+      "sheet_name": "KomRang17_2000"
+    },
+    {
+      "name": "2050",
+      "sheet_name": "KomRang17_2050"
+    },
+    {
+      "name": "2100",
+      "sheet_name": "KomRang17_2100"
+    }
+  ],
   "elements": [
     {
       "name": "Hazard",

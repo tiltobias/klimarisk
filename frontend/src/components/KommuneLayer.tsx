@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { GeoJSON } from 'react-leaflet';
-import useDataStore from '../hooks/useDataStore';
+import useDataStore, { type KommuneNr } from '../hooks/useDataStore';
 
 import type { FeatureCollection, Feature, Polygon, MultiPolygon, Geometry } from 'geojson';
 import type { Polygon as LeafletPolygon } from 'leaflet';
 import { getPublicUrl } from '../hooks/getPublicUrl';
 
 type KommuneProperties = { 
-  kommunenummer: string, // TODO: change to string and keep consistent (with leading zeros)
-  KomNavn: string
+  kommunenummer: KommuneNr; 
+  KomNavn: string; 
 };
 type KommuneFeature = Feature<Polygon | MultiPolygon, KommuneProperties>;
 type KommuneGeoJSON = FeatureCollection<Polygon | MultiPolygon, KommuneProperties>;
@@ -26,6 +26,7 @@ function KommuneLayer() {
 
   const {
     data: komData,
+    selectedYear,
     highlightedKommune,
     setHighlightedKommune,
     setSelectedKommune,
@@ -35,7 +36,7 @@ function KommuneLayer() {
     layer.on({
       mouseover: () => {
         setHighlightedKommune(feature.properties.kommunenummer);
-        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, ${komData ? komData[feature.properties.kommunenummer]?.sumMetric.name : 'N/A'}: ${komData ? komData[feature.properties.kommunenummer]?.sumMetric.value : 'N/A'}`;
+        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, ${komData && selectedYear ? komData[selectedYear][feature.properties.kommunenummer]?.sumMetric.name : 'N/A'}: ${komData && selectedYear ? komData[selectedYear][feature.properties.kommunenummer]?.sumMetric.value : 'N/A'}`;
       },
       mouseout: () => {
         setHighlightedKommune(null);
@@ -47,9 +48,9 @@ function KommuneLayer() {
     });
   };
 
-  const getColor = (komId: string) => {
-    if (!komData) return 'gray';
-    const risk = komData[komId]?.sumMetric.value;
+  const getColor = (komId: KommuneNr | null) => {
+    if (!komData || !selectedYear || !komId) return 'gray';
+    const risk = komData[selectedYear][komId]?.sumMetric.value;
     if (risk === undefined) return 'gray';
     if (risk < 100) return 'green';
     if (risk < 120) return 'yellow';
@@ -62,7 +63,7 @@ function KommuneLayer() {
     const props = feature?.properties as KommuneProperties | undefined;
 
     return {
-      fillColor: getColor(props?.kommunenummer.toString() || ''),
+      fillColor: getColor(props?.kommunenummer || null),
       weight: props?.kommunenummer === highlightedKommune ? 3 : 0.5,
       opacity: 1,
       color: 'black',
