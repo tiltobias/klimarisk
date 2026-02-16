@@ -89,6 +89,7 @@
     {
       "name": "Respons",
       "col_name": "Respons2000_0_100",
+      "invert": true,
       "metrics": [
         {
           "name": "Lokale tiltak med statlig støtte",

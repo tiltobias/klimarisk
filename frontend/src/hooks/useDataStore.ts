@@ -4,11 +4,13 @@ import { getPublicUrl } from './getPublicUrl';
 type Metric = {
   name: string; 
   value: number;
+  invert?: boolean;
 }
 
 type Element = {
   name: string;
   value: number;
+  invert?: boolean
   metrics: Metric[];
 }
 
@@ -27,6 +29,14 @@ type RiskData = {
   }
 }
 
+type InvertibleValue = {
+  value: number;
+  invert?: boolean
+}
+
+const sumInvertibleValues = (items: InvertibleValue[]): number => {
+  return items.reduce((acc, val) => acc + (val.invert === true ? 100-val.value : val.value), 0)
+}
 
 interface DataStore {
   data: RiskData | null;
@@ -78,7 +88,7 @@ const useDataStore = create<DataStore>((set, get) => ({
     const { data, selectedKommune, selectedYear } = get()
     if (!data || !selectedKommune || !selectedYear) return null
     const elements = data[selectedYear][selectedKommune].elements
-    return elements.reduce((acc, val) => acc + val.value, 0)
+    return sumInvertibleValues(elements)
   },
 
   getElementTotal: (elementIndex) => {
@@ -86,12 +96,12 @@ const useDataStore = create<DataStore>((set, get) => ({
     if (!data || !selectedKommune || !selectedYear) return null
     const metrics = data[selectedYear][selectedKommune].elements[elementIndex].metrics
 
-    const tmpRes = metrics.reduce((acc, val) => acc + val.value, 0)
+    const tmpRes = sumInvertibleValues(metrics)
     let min = Infinity
     let max = -Infinity
     for (const year of Object.values(data)) {
       for (const kom of Object.values(year)) {
-        const calculatedRisk = kom.elements[elementIndex].metrics.reduce((acc, val) => acc + val.value, 0)
+        const calculatedRisk = sumInvertibleValues(kom.elements[elementIndex].metrics)
         if (calculatedRisk < min) {
           min = calculatedRisk
         }

@@ -37,14 +37,19 @@ for year in dm["years"]:
             element_data = {
                 "name": element["name"],
                 "value": row[fixKey(element["col_name"], yr)], #TODO: add element weighting, as well as metric weightings
-                "metrics": [],
             }
+            if element.get("invert"):
+                element_data["invert"] = True
+            element_data["metrics"] = []
 
             for metric in element["metrics"]: #TODO: maybe rename metric to indikator
                 metric_data = {
                     "name": metric["name"],
                     "value": row[fixKey(metric["col_name"], yr)],
                 }
+                if metric.get("invert"):
+                    metric_data["invert"] = True
+                
                 element_data["metrics"].append(metric_data)
             
             row_data["elements"].append(element_data)
