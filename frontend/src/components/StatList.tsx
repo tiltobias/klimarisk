@@ -19,10 +19,10 @@ function StatList() {
       (
         <ul>
           <li><strong>Kommune:</strong> {currentKommune.name} ({selectedKommune})</li>
-          <li><strong>Risk:</strong> {currentKommune.sumMetric.value.toFixed(3)} == {getTotalRisk()?.toFixed(3) ?? "-"}
+          <li><strong>Risk:</strong> {getTotalRisk()?.toFixed(3) ?? "-"}
             <ul>
               {currentKommune.elements.map((element, index) => (
-                <li key={index}><strong>{element.name}:</strong> {element.value - (getElementTotal(index) || 999)} --- {element.value.toFixed(0)}
+                <li key={index}><strong>{element.name}:</strong> {getElementTotal(index)?.toFixed(0) ?? "-"}
                   <ul>
                     {element.metrics.map((metric, mIndex) => (
                       <li key={mIndex}><strong>{metric.name}:</strong> {metric.value.toFixed(0)}</li>

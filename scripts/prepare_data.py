@@ -26,7 +26,7 @@ for year in dm["years"]:
     for index, row in df.iterrows():
         iKomNr = str(row["iKomNr"]).zfill(4) # Ensure 4-digit kommune number #TODO: settle on format, keep consistent with frontend
         row_data = {
-            "Navn": row["KomNavn"],
+            "name": row["KomNavn"],
             "sumMetric": {
                 "name": dm["name"],
                 "value": row[fixKey(dm["col_name"], yr)],
