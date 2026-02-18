@@ -25,18 +25,17 @@ function KommuneLayer() {
   }, []);
 
   const {
-    data: komData,
-    selectedYear,
     highlightedKommune,
     setHighlightedKommune,
     setSelectedKommune,
+    getTotalRisk,
   } = useDataStore();
 
   const onEachFeature = (feature: KommuneFeature, layer: LeafletPolygon) => {
     layer.on({
       mouseover: () => {
         setHighlightedKommune(feature.properties.kommunenummer);
-        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}, ${komData && selectedYear ? komData[selectedYear][feature.properties.kommunenummer]?.sumMetric.name : 'N/A'}: ${komData && selectedYear ? komData[selectedYear][feature.properties.kommunenummer]?.sumMetric.value : 'N/A'}`;
+        document.getElementById("app-title")!.innerText = `${feature.properties.kommunenummer} ${feature.properties.KomNavn}`;
       },
       mouseout: () => {
         setHighlightedKommune(null);
@@ -49,9 +48,9 @@ function KommuneLayer() {
   };
 
   const getColor = (komId: KommuneNr | null) => {
-    if (!komData || !selectedYear || !komId) return 'gray';
-    const risk = komData[selectedYear][komId]?.sumMetric.value;
-    if (risk === undefined) return 'gray';
+    if (!komId) return 'gray';
+    const risk = getTotalRisk(komId);
+    if (!risk) return 'gray';
     if (risk < 100) return 'green';
     if (risk < 120) return 'yellow';
     if (risk < 140) return 'orange';

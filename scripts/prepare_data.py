@@ -27,33 +27,12 @@ for year in dm["years"]:
         iKomNr = str(row["iKomNr"]).zfill(4) # Ensure 4-digit kommune number #TODO: settle on format, keep consistent with frontend
         row_data = {
             "name": row["KomNavn"],
-            "sumMetric": {
-                "name": dm["name"],
-                "value": row[fixKey(dm["col_name"], yr)],
-            },
-            "elements": [],
         }
         for element in dm["elements"]: #TODO: maybe rename element to indeks
-            element_data = {
-                "name": element["name"],
-                "value": row[fixKey(element["col_name"], yr)], #TODO: add element weighting, as well as metric weightings
-            }
-            if element.get("invert"):
-                element_data["invert"] = True
-            element_data["metrics"] = []
-
+            #TODO: add element weighting, as well as metric weightings
             for metric in element["metrics"]: #TODO: maybe rename metric to indikator
-                metric_data = {
-                    "name": metric["name"],
-                    "value": row[fixKey(metric["col_name"], yr)],
-                }
-                if metric.get("invert"):
-                    metric_data["invert"] = True
-                
-                element_data["metrics"].append(metric_data)
-            
-            row_data["elements"].append(element_data)
-        
+                row_data[metric["key"]] = row[fixKey(metric["col_name"], yr)]
+
         kommune_data_year[iKomNr] = row_data
 
     kommune_data[yr] = kommune_data_year

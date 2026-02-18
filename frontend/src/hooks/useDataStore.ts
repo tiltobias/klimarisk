@@ -1,45 +1,46 @@
 import { create } from 'zustand';
 import { getPublicUrl } from './getPublicUrl';
 
+type MetricKey = string & { readonly __brand: unique symbol};
+
 type Metric = {
   name: string; 
-  value: number;
+  key: MetricKey;
   invert?: boolean;
 }
 
 type Element = {
   name: string;
-  value: number;
-  invert?: boolean
+  invert?: boolean;
   metrics: Metric[];
 }
 
-type Kommune = { 
-  name: string; 
-  sumMetric: Metric;
+type DataModel = { 
   elements: Element[];
 };
+
+type Kommune = {
+  name: string;
+  [key: MetricKey]: number;
+}
 
 export type Year = string & { readonly __brand: unique symbol};
 export type KommuneNr = string & { readonly __brand: unique symbol};
 
-type RiskData = {
+type Data = {
   [year: Year]: {
-    [kommuneNr: KommuneNr]: Kommune
+    [kommuneNr: KommuneNr]: Kommune;
   }
 }
 
-type InvertibleValue = {
-  value: number;
-  invert?: boolean
-}
 
-const sumInvertibleValues = (items: InvertibleValue[]): number => {
-  return items.reduce((acc, val) => acc + (val.invert === true ? 100-val.value : val.value), 0)
+const sumInvertibleValues = (metrics: Metric[], kommune: Kommune): number => {
+  return metrics.reduce((acc, metric) => acc + (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key]), 0)
 }
 
 interface DataStore {
-  data: RiskData | null;
+  dataModel: DataModel | null;
+  data: Data | null;
   fetchData: () => Promise<void>;
 
   selectedYear: Year | null;
@@ -51,20 +52,26 @@ interface DataStore {
   selectedKommune: KommuneNr | null;
   setSelectedKommune: (kommune: KommuneNr | null) => void;
 
-  getTotalRisk: () => number | null;
+  getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 
-  getElementTotal: (elementIndex: number) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
+  getTotalRisk: (komNr?: KommuneNr) => number | null;
 }
 
 const useDataStore = create<DataStore>((set, get) => ({
   
+  dataModel: null,
+  
   data: null,
   
   fetchData: async () => {
-    const res = await fetch(getPublicUrl('/data/kommune_data.json'));
-    const data: RiskData = await res.json();
+    const dataRes = await fetch(getPublicUrl('/data/kommune_data.json'));
+    const data: Data = await dataRes.json();
+    
+    const dataModelRes = await fetch(getPublicUrl('/data/kommune_data_model.json'));
+    const dataModel: DataModel = await dataModelRes.json();
+    
     const selectedYear = Object.keys(data)[0] as Year // TODO: Make default year property in kommune_data_model.json?
-    set({ data, selectedYear });
+    set({ dataModel, data, selectedYear });
   },
 
   selectedYear: null,
@@ -84,24 +91,19 @@ const useDataStore = create<DataStore>((set, get) => ({
     return { selectedKommune: kommune };
   }),
 
-  getTotalRisk: () => {
-    const { data, selectedKommune, selectedYear } = get()
-    if (!data || !selectedKommune || !selectedYear) return null
-    const elements = data[selectedYear][selectedKommune].elements
-    return sumInvertibleValues(elements)
-  },
+  getElementValue: (elementIndex, komNr?) => {
+    const { dataModel, data, selectedKommune, selectedYear } = get()
+    if (!dataModel || !data || !selectedYear || (!komNr && !selectedKommune)) return null
 
-  getElementTotal: (elementIndex) => {
-    const { data, selectedKommune, selectedYear } = get()
-    if (!data || !selectedKommune || !selectedYear) return null
-    const metrics = data[selectedYear][selectedKommune].elements[elementIndex].metrics
+    const metrics = dataModel.elements[elementIndex].metrics
+    const kommune = data[selectedYear][komNr ?? selectedKommune!]
 
-    const tmpRes = sumInvertibleValues(metrics)
+    const tmpRes = sumInvertibleValues(metrics, kommune)
     let min = Infinity
     let max = -Infinity
     for (const year of Object.values(data)) {
       for (const kom of Object.values(year)) {
-        const calculatedRisk = sumInvertibleValues(kom.elements[elementIndex].metrics)
+        const calculatedRisk = sumInvertibleValues(metrics, kom)
         if (calculatedRisk < min) {
           min = calculatedRisk
         }
@@ -113,7 +115,17 @@ const useDataStore = create<DataStore>((set, get) => ({
     
     if (min === max) return null
     return (tmpRes - min)/(max - min)*100
-  }
+  },
+
+  getTotalRisk: (komNr?) => {
+    const { dataModel, data, selectedKommune, selectedYear, getElementValue } = get()
+    if (!dataModel || !data || !selectedYear || (!komNr && !selectedKommune)) return null
+    const elements = dataModel.elements
+    return elements.reduce((acc, element) => {
+      const elementValue = getElementValue(elements.indexOf(element), komNr) ?? 0;
+      return acc + (element.invert === true ? 100 - elementValue : elementValue);
+    }, 0);
+  },
 
 }));
 
