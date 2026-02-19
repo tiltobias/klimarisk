@@ -28,7 +28,7 @@ function KommuneLayer() {
     highlightedKommune,
     setHighlightedKommune,
     setSelectedKommune,
-    getTotalRisk,
+    getRiskColor,
   } = useDataStore();
 
   const onEachFeature = (feature: KommuneFeature, layer: LeafletPolygon) => {
@@ -47,14 +47,8 @@ function KommuneLayer() {
     });
   };
 
-  const getColor = (komId: KommuneNr | null) => {
-    if (!komId) return 'gray';
-    const risk = getTotalRisk(komId);
-    if (!risk) return 'gray';
-    if (risk < 100) return 'green';
-    if (risk < 120) return 'yellow';
-    if (risk < 140) return 'orange';
-    return 'red';
+  const getColor = (komNr: KommuneNr | null) => {
+    return komNr ? getRiskColor(komNr): 'gray';
   }
 
   const style = (feature?: Feature<Geometry, unknown>) => {

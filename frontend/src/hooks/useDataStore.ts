@@ -42,6 +42,8 @@ type Cache = {
   [year: Year]: {
     [kommuneNr: KommuneNr]: KommuneCache;
   }
+  minRisk: number;
+  maxRisk: number;
 }
 
 
@@ -60,6 +62,8 @@ interface DataStore {
 
   getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
   getTotalRisk: (komNr?: KommuneNr) => number | null;
+
+  getRiskColor: (komNr?: KommuneNr) => string;
 
 
   selectedYear: Year | null;
@@ -97,16 +101,18 @@ const useDataStore = create<DataStore>((set, get) => ({
     const { dataModel, data } = get();
     if (!dataModel || !data) return;
 
-    const cache: Cache = {} as Cache;
+    const cache: Cache = {
+      minRisk: Infinity,
+      maxRisk: -Infinity,
+    } as Cache;
 
     for (const year of Object.keys(data)) {
       cache[year as Year] = {};
       for (const komNr of Object.keys(data[year as Year])) {
         const kommuneCache: KommuneCache = { totalRisk: 0 };
         
-        const elementCount = dataModel.elements.length;
         let totalRisk = 0;
-        for (let i = 0; i < elementCount; i++) {
+        for (let i = 0; i < dataModel.elements.length; i++) {
           const elementValue = get().calculateElementValue(i, komNr as KommuneNr);
           if (elementValue !== null) {
             kommuneCache[i] = elementValue;
@@ -114,6 +120,8 @@ const useDataStore = create<DataStore>((set, get) => ({
           }
         }
         kommuneCache.totalRisk = totalRisk;
+        if (totalRisk < cache.minRisk) cache.minRisk = totalRisk;
+        if (totalRisk > cache.maxRisk) cache.maxRisk = totalRisk;
 
         cache[year as Year][komNr as KommuneNr] = kommuneCache;
       }
@@ -134,12 +142,8 @@ const useDataStore = create<DataStore>((set, get) => ({
     for (const year of Object.values(data)) {
       for (const kom of Object.values(year)) {
         const calculatedRisk = sumInvertibleValues(metrics, kom)
-        if (calculatedRisk < min) {
-          min = calculatedRisk
-        }
-        if (calculatedRisk > max) {
-          max = calculatedRisk
-        }
+        if (calculatedRisk < min) min = calculatedRisk;
+        if (calculatedRisk > max) max = calculatedRisk;
       }
     }
     
@@ -157,6 +161,17 @@ const useDataStore = create<DataStore>((set, get) => ({
     const { cache, selectedKommune, selectedYear } = get()
     if (!cache || !selectedYear || (!komNr && !selectedKommune)) return null
     return cache[selectedYear][komNr ?? selectedKommune!].totalRisk
+  },
+
+  getRiskColor: (komNr) => {
+    const risk = get().getTotalRisk(komNr);
+    const { cache } = get();
+    if (risk === null || !cache) return 'gray';
+    const { minRisk, maxRisk } = cache;
+    if (risk < minRisk + (maxRisk - minRisk) * 0.25) return 'green';
+    if (risk < minRisk + (maxRisk - minRisk) * 0.5) return 'yellow';
+    if (risk < minRisk + (maxRisk - minRisk) * 0.75) return 'orange';
+    return 'red';
   },
 
 
