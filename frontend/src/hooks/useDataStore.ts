@@ -7,11 +7,13 @@ type Metric = {
   name: string; 
   key: MetricKey;
   invert?: boolean;
+  disabled: boolean;
 }
 
 type Element = {
   name: string;
   invert?: boolean;
+  disabled: boolean;
   metrics: Metric[];
 }
 
@@ -39,8 +41,10 @@ type KommuneCache = {
 }
 
 type Cache = {
-  [year: Year]: {
-    [kommuneNr: KommuneNr]: KommuneCache;
+  years: {
+    [year: Year]: {
+      [kommuneNr: KommuneNr]: KommuneCache;
+    }
   }
   minRisk: number;
   maxRisk: number;
@@ -48,7 +52,7 @@ type Cache = {
 
 
 const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number => {
-  return metrics.reduce((acc, metric) => acc + (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key]), 0)
+  return metrics.reduce((acc, metric) => acc + (metric.disabled ? 0 : (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key])), 0)
 }
 
 interface DataStore {
@@ -57,13 +61,13 @@ interface DataStore {
   fetchData: () => Promise<void>;
 
   cache: Cache | null;
-  refreshCache: () => void;
+  refreshCache: (elementIndex?: number | "risk") => void;
+  refreshCacheDeep: () => void;
+  refreshCacheRisk: () => void;
+  refreshCacheElement: (elementIndex: number) => void;
   calculateElementValue: (elementIndex: number, komNr: KommuneNr, year: Year) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 
-  getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
-  getTotalRisk: (komNr?: KommuneNr) => number | null;
-
-  getRiskColor: (komNr?: KommuneNr) => string;
+  getRiskColor: (komNr: KommuneNr) => string;
 
 
   selectedYear: Year | null;
@@ -89,44 +93,119 @@ const useDataStore = create<DataStore>((set, get) => ({
     const dataModelRes = await fetch(getPublicUrl('/data/kommune_data_model.json'));
     const dataModel: DataModel = await dataModelRes.json();
 
+    // Enable all elements and metrics by default (.json file might miss disabled property)
+    dataModel.elements.forEach(element => {
+      element.disabled = false;
+      element.metrics.forEach(metric => {
+        metric.disabled = false;
+      });
+    });
+
     const selectedYear = Object.keys(data)[0] as Year // TODO: Make default year property in kommune_data_model.json?
     set({ dataModel, data, selectedYear });
 
-    get().refreshCache();
+    get().refreshCacheDeep();
   },
 
   cache: null,
 
-  refreshCache: () => {
-    const { dataModel, data } = get();
+  refreshCache: (elementIndex?: number | "risk") => {
+    if (elementIndex === undefined) { // Recalculate entire cache
+      get().refreshCacheDeep();
+
+    } else if (elementIndex === "risk") { // Only recalculate total risk for all kommunes (used when toggling element on/off to update total risk without recalculating all element values)
+      get().refreshCacheRisk();
+
+    } else { // Recalculate only specified element for all kommunes (used when toggling metric on/off to update element value without recalculating total risk)
+      get().refreshCacheElement(elementIndex);
+
+    }
+  },
+
+  refreshCacheDeep: () => {
+    const { dataModel, data, calculateElementValue } = get();
     if (!dataModel || !data) return;
 
     const cache: Cache = {
+      years: {},
       minRisk: Infinity,
       maxRisk: -Infinity,
     } as Cache;
 
     for (const year of Object.keys(data)) {
-      cache[year as Year] = {};
+      cache.years[year as Year] = {};
       for (const komNr of Object.keys(data[year as Year])) {
         const kommuneCache: KommuneCache = { totalRisk: 0 };
         
         let totalRisk = 0;
         for (let i = 0; i < dataModel.elements.length; i++) {
-          const elementValue = get().calculateElementValue(i, komNr as KommuneNr, year as Year);
+          const elementValue = calculateElementValue(i, komNr as KommuneNr, year as Year);
           if (elementValue !== null) {
             kommuneCache[i] = elementValue;
-            totalRisk += dataModel.elements[i].invert === true ? 100 - elementValue : elementValue;
+            totalRisk += dataModel.elements[i].disabled ? 0 : (dataModel.elements[i].invert === true ? 100 - elementValue : elementValue);
           }
         }
         kommuneCache.totalRisk = totalRisk;
         if (totalRisk < cache.minRisk) cache.minRisk = totalRisk;
         if (totalRisk > cache.maxRisk) cache.maxRisk = totalRisk;
 
-        cache[year as Year][komNr as KommuneNr] = kommuneCache;
+        cache.years[year as Year][komNr as KommuneNr] = kommuneCache;
       }
     }
     set({ cache });
+  },
+
+  refreshCacheRisk: () => {
+    const { dataModel, cache } = get();
+    if (!dataModel || !cache) return;
+
+    let minRisk = Infinity;
+    let maxRisk = -Infinity;
+
+    const newYears = Object.fromEntries(
+      Object.entries(cache.years).map(([year, kommunes]) => [
+        year,
+        Object.fromEntries(
+          Object.entries(kommunes).map(([komNr, kommuneCache]) => {
+
+            const totalRisk = dataModel.elements.reduce((acc, element, index) => {
+              const elementValue = cache.years[year as Year][komNr as KommuneNr][index];
+              return acc + (element.disabled ? 0 : (element.invert === true ? 100 - elementValue : elementValue));
+            }, 0);
+
+            if (totalRisk < minRisk) minRisk = totalRisk;
+            if (totalRisk > maxRisk) maxRisk = totalRisk;
+            return [komNr, { ...kommuneCache, totalRisk }];
+          })
+        ),
+      ])
+    );
+
+    set({ cache: { ...cache, years: newYears, minRisk, maxRisk } });
+  },
+
+  refreshCacheElement: (elementIndex) => {
+    const { cache, calculateElementValue, refreshCacheRisk } = get();
+    if (!cache) return;
+
+    const newYears = Object.fromEntries(
+      Object.entries(cache.years).map(([year, kommunes]) => [
+        year,
+        Object.fromEntries(
+          Object.entries(kommunes).map(([komNr, kommuneCache]) => {
+            const elementValue = calculateElementValue(elementIndex, komNr as KommuneNr, year as Year);
+            if (elementValue === null) return [komNr, kommuneCache]; // No change if element value is null (e.g. all metrics disabled)
+            return [
+              komNr,
+              { ...kommuneCache, [elementIndex]: elementValue }
+            ];
+          })
+        ),
+      ])
+    );
+
+    set({ cache: { ...cache, years: newYears } });
+    refreshCacheRisk(); // Update total risk after element value change
   },
 
   calculateElementValue: (elementIndex, komNr, year) => {
@@ -151,22 +230,11 @@ const useDataStore = create<DataStore>((set, get) => ({
     return (tmpRes - min)/(max - min)*100
   },
 
-  getElementValue: (elementIndex, komNr?) => {
-    const { cache, selectedKommune, selectedYear } = get()
-    if (!cache || !selectedYear || (!komNr && !selectedKommune)) return null
-    return cache[selectedYear][komNr ?? selectedKommune!][elementIndex]
-  },
-
-  getTotalRisk: (komNr?) => {
-    const { cache, selectedKommune, selectedYear } = get()
-    if (!cache || !selectedYear || (!komNr && !selectedKommune)) return null
-    return cache[selectedYear][komNr ?? selectedKommune!].totalRisk
-  },
 
   getRiskColor: (komNr) => {
-    const risk = get().getTotalRisk(komNr);
-    const { cache } = get();
-    if (risk === null || !cache) return 'gray';
+    const { cache, selectedYear } = get();
+    if (!cache || !selectedYear) return 'gray';
+    const risk = cache.years[selectedYear][komNr].totalRisk;
     const { minRisk, maxRisk } = cache;
     if (risk < minRisk + (maxRisk - minRisk) * 0.25) return 'green';
     if (risk < minRisk + (maxRisk - minRisk) * 0.5) return 'yellow';
