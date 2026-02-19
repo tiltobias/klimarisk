@@ -2,6 +2,7 @@ import './Map.css';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import KommuneLayer from './KommuneLayer';
+import Yearcontrol from './YearControl';
 
 
 function Map() {
@@ -23,6 +24,8 @@ function Map() {
         // url="https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png"
       />
       <KommuneLayer />
+
+      <Yearcontrol />
     </MapContainer>
   )
 }

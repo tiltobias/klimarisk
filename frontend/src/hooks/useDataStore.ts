@@ -58,7 +58,7 @@ interface DataStore {
 
   cache: Cache | null;
   refreshCache: () => void;
-  calculateElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
+  calculateElementValue: (elementIndex: number, komNr: KommuneNr, year: Year) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 
   getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
   getTotalRisk: (komNr?: KommuneNr) => number | null;
@@ -113,7 +113,7 @@ const useDataStore = create<DataStore>((set, get) => ({
         
         let totalRisk = 0;
         for (let i = 0; i < dataModel.elements.length; i++) {
-          const elementValue = get().calculateElementValue(i, komNr as KommuneNr);
+          const elementValue = get().calculateElementValue(i, komNr as KommuneNr, year as Year);
           if (elementValue !== null) {
             kommuneCache[i] = elementValue;
             totalRisk += dataModel.elements[i].invert === true ? 100 - elementValue : elementValue;
@@ -129,12 +129,12 @@ const useDataStore = create<DataStore>((set, get) => ({
     set({ cache });
   },
 
-  calculateElementValue: (elementIndex, komNr?) => {
-    const { dataModel, data, selectedKommune, selectedYear } = get()
-    if (!dataModel || !data || !selectedYear || (!komNr && !selectedKommune)) return null
+  calculateElementValue: (elementIndex, komNr, year) => {
+    const { dataModel, data } = get()
+    if (!dataModel || !data || !komNr || !year ) return null
 
     const metrics = dataModel.elements[elementIndex].metrics
-    const kommune = data[selectedYear][komNr ?? selectedKommune!]
+    const kommune = data[year][komNr]
 
     const tmpRes = sumInvertibleValues(metrics, kommune)
     let min = Infinity
