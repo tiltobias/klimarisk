@@ -19,7 +19,7 @@ type DataModel = {
   elements: Element[];
 };
 
-type Kommune = {
+type KommuneData = {
   name: string;
   [key: MetricKey]: number;
 }
@@ -29,12 +29,23 @@ export type KommuneNr = string & { readonly __brand: unique symbol};
 
 type Data = {
   [year: Year]: {
-    [kommuneNr: KommuneNr]: Kommune;
+    [kommuneNr: KommuneNr]: KommuneData;
+  }
+}
+
+type KommuneCache = {
+  [elementIndex: number]: number;
+  totalRisk: number;
+}
+
+type Cache = {
+  [year: Year]: {
+    [kommuneNr: KommuneNr]: KommuneCache;
   }
 }
 
 
-const sumInvertibleValues = (metrics: Metric[], kommune: Kommune): number => {
+const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number => {
   return metrics.reduce((acc, metric) => acc + (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key]), 0)
 }
 
@@ -42,6 +53,14 @@ interface DataStore {
   dataModel: DataModel | null;
   data: Data | null;
   fetchData: () => Promise<void>;
+
+  cache: Cache | null;
+  refreshCache: () => void;
+  calculateElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
+
+  getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
+  getTotalRisk: (komNr?: KommuneNr) => number | null;
+
 
   selectedYear: Year | null;
   setSelectedYear: (year: Year) => void;
@@ -51,10 +70,6 @@ interface DataStore {
   
   selectedKommune: KommuneNr | null;
   setSelectedKommune: (kommune: KommuneNr | null) => void;
-
-  getElementValue: (elementIndex: number, komNr?: KommuneNr) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
-
-  getTotalRisk: (komNr?: KommuneNr) => number | null;
 }
 
 const useDataStore = create<DataStore>((set, get) => ({
@@ -69,29 +84,44 @@ const useDataStore = create<DataStore>((set, get) => ({
     
     const dataModelRes = await fetch(getPublicUrl('/data/kommune_data_model.json'));
     const dataModel: DataModel = await dataModelRes.json();
-    
+
     const selectedYear = Object.keys(data)[0] as Year // TODO: Make default year property in kommune_data_model.json?
     set({ dataModel, data, selectedYear });
+
+    get().refreshCache();
   },
 
-  selectedYear: null,
+  cache: null,
 
-  setSelectedYear: (year) => set({ selectedYear: year }),
+  refreshCache: () => {
+    const { dataModel, data } = get();
+    if (!dataModel || !data) return;
 
-  highlightedKommune: null,
-  
-  setHighlightedKommune: (kommune) => set({ highlightedKommune: kommune }), 
-  
-  selectedKommune: null,
-  
-  setSelectedKommune: (kommune) => set((state) => {
-    if (state.selectedKommune === kommune) {
-      return { selectedKommune: null };
+    const cache: Cache = {} as Cache;
+
+    for (const year of Object.keys(data)) {
+      cache[year as Year] = {};
+      for (const komNr of Object.keys(data[year as Year])) {
+        const kommuneCache: KommuneCache = { totalRisk: 0 };
+        
+        const elementCount = dataModel.elements.length;
+        let totalRisk = 0;
+        for (let i = 0; i < elementCount; i++) {
+          const elementValue = get().calculateElementValue(i, komNr as KommuneNr);
+          if (elementValue !== null) {
+            kommuneCache[i] = elementValue;
+            totalRisk += dataModel.elements[i].invert === true ? 100 - elementValue : elementValue;
+          }
+        }
+        kommuneCache.totalRisk = totalRisk;
+
+        cache[year as Year][komNr as KommuneNr] = kommuneCache;
+      }
     }
-    return { selectedKommune: kommune };
-  }),
+    set({ cache });
+  },
 
-  getElementValue: (elementIndex, komNr?) => {
+  calculateElementValue: (elementIndex, komNr?) => {
     const { dataModel, data, selectedKommune, selectedYear } = get()
     if (!dataModel || !data || !selectedYear || (!komNr && !selectedKommune)) return null
 
@@ -117,15 +147,35 @@ const useDataStore = create<DataStore>((set, get) => ({
     return (tmpRes - min)/(max - min)*100
   },
 
-  getTotalRisk: (komNr?) => {
-    const { dataModel, data, selectedKommune, selectedYear, getElementValue } = get()
-    if (!dataModel || !data || !selectedYear || (!komNr && !selectedKommune)) return null
-    const elements = dataModel.elements
-    return elements.reduce((acc, element) => {
-      const elementValue = getElementValue(elements.indexOf(element), komNr) ?? 0;
-      return acc + (element.invert === true ? 100 - elementValue : elementValue);
-    }, 0);
+  getElementValue: (elementIndex, komNr?) => {
+    const { cache, selectedKommune, selectedYear } = get()
+    if (!cache || !selectedYear || (!komNr && !selectedKommune)) return null
+    return cache[selectedYear][komNr ?? selectedKommune!][elementIndex]
   },
+
+  getTotalRisk: (komNr?) => {
+    const { cache, selectedKommune, selectedYear } = get()
+    if (!cache || !selectedYear || (!komNr && !selectedKommune)) return null
+    return cache[selectedYear][komNr ?? selectedKommune!].totalRisk
+  },
+
+
+  selectedYear: null,
+
+  setSelectedYear: (year) => set({ selectedYear: year }),
+
+  highlightedKommune: null,
+  
+  setHighlightedKommune: (kommune) => set({ highlightedKommune: kommune }), 
+  
+  selectedKommune: null,
+  
+  setSelectedKommune: (kommune) => set((state) => {
+    if (state.selectedKommune === kommune) {
+      return { selectedKommune: null };
+    }
+    return { selectedKommune: kommune };
+  }),
 
 }));
 
