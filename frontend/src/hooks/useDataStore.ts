@@ -67,7 +67,7 @@ interface DataStore {
   refreshCacheElement: (elementIndex: number) => void;
   calculateElementValue: (elementIndex: number, komNr: KommuneNr, year: Year) => number | null; // takes index of the element (hazard, vulnr, expo or resp) in the elements list
 
-  getRiskColor: (komNr: KommuneNr) => string;
+  getRiskColor: (komNr: KommuneNr, colors?: string[]) => string;
 
 
   selectedYear: Year | null;
@@ -228,15 +228,14 @@ const useDataStore = create<DataStore>((set, get) => ({
   },
 
 
-  getRiskColor: (komNr) => {
+  getRiskColor: (komNr, colors = ['green', 'yellow', 'orange', 'red']) => {
     const { cache, selectedYear } = get();
-    if (!cache || !selectedYear) return 'gray';
+    if (!cache || !selectedYear || colors.length === 0) return 'gray';
     const risk = cache.years[selectedYear][komNr].totalRisk;
     const { minRisk, maxRisk } = cache;
-    if (risk < minRisk + (maxRisk - minRisk) * 0.25) return 'green';
-    if (risk < minRisk + (maxRisk - minRisk) * 0.5) return 'yellow';
-    if (risk < minRisk + (maxRisk - minRisk) * 0.75) return 'orange';
-    return 'red';
+    if (minRisk === maxRisk) return 'gray'; // Avoid division by zero and invalid risk values
+    const colorIndex = Math.floor((risk - minRisk) / (maxRisk - minRisk) * colors.length);
+    return colors[Math.min(colorIndex, colors.length - 1)];
   },
 
 
