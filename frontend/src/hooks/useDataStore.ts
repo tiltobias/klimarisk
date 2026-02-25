@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getPublicUrl } from './getPublicUrl';
+import { getDataFileJSON } from './getPublicUrl';
 
 type MetricKey = string & { readonly __brand: unique symbol};
 
@@ -87,11 +87,8 @@ const useDataStore = create<DataStore>((set, get) => ({
   data: null,
   
   fetchData: async () => {
-    const dataRes = await fetch(getPublicUrl('/data/kommune_data.json'));
-    const data: Data = await dataRes.json();
-    
-    const dataModelRes = await fetch(getPublicUrl('/data/kommune_data_model.json'));
-    const dataModel: DataModel = await dataModelRes.json();
+    const data: Data = await getDataFileJSON('kommune_data.json');
+    const dataModel: DataModel = await getDataFileJSON('kommune_data_model.json');
 
     // Enable all elements and metrics by default (.json file might miss disabled property)
     dataModel.elements.forEach(element => {

@@ -26,7 +26,7 @@ function StatList() {
             <ul>
               {dataModel.elements.map((element, index) => (
                 <li key={index}>
-                  <input type="checkbox" defaultChecked={!element.disabled} checked={!element.disabled} onChange={(e) => {
+                  <input type="checkbox" checked={!element.disabled} onChange={(e) => {
                     element.disabled = !e.target.checked;
                     refreshCacheRisk(); //TODO: Check if a metric has changed while disabled
                   }} />
@@ -35,7 +35,7 @@ function StatList() {
                   <ul>
                     {element.metrics.map((metric, mIndex) => (
                       <li key={mIndex}>
-                        <input type="checkbox" defaultChecked={!metric.disabled} checked={!metric.disabled} onChange={(e) => {
+                        <input type="checkbox" checked={!metric.disabled} onChange={(e) => {
                           metric.disabled = !e.target.checked;
                           refreshCacheElement(index); // Update only this element's value
                         }} />
