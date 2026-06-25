@@ -1,8 +1,10 @@
-# Klimarisk dashboard – thesis submission version
+# Klimarisk dashboard
 
-This repository contains the version of the code described in the [master thesis in Geomatics at NTNU](https://www.ntnu.edu/studies/courses/TBA4925/2025). The thesis develops a web-based dashboard for exploring municipal climate risk data for Norway, based on [climate risk data from the Noradapt climate service](https://klimamonitor.no/analysar/kommunerangering-2024).
+This repository contains the source code for a web-based dashboard developed as part of a [master thesis in Geomatics at NTNU](https://www.ntnu.edu/studies/courses/TBA4925/2025). The dashboard is used to explore municipal climate risk data for Norway, based on [climate risk data from the Noradapt climate service](https://klimamonitor.no/analysar/kommunerangering-2024).
 
 The dashboard is designed to make municipal climate risk data easier to inspect, compare, and understand through linked views such as maps, tables, charts, rankings, and indicator-level controls.
+
+For the specific repository version described in the master thesis, see the [thesis-submission Git tag](https://github.com/tiltobias/klimarisk/tree/thesis-submission).
 
 ## Online application
 
@@ -10,7 +12,7 @@ The dashboard is hosted by GitHub Pages and is available online at:
 
 [tiltobias.github.io/klimarisk](https://tiltobias.github.io/klimarisk/)
 
-This online deployment may reflect changes made after the thesis submission. To run the exact version of the application described in the thesis, download or clone this repository version and follow the guide in [Running locally](#running-locally).
+This online deployment reflects the current deployed version of the application. To run the project locally, download or clone this repository and follow the guide in [Running locally](#running-locally).
 
 ## Related data repository
 
@@ -35,7 +37,7 @@ klimarisk/
 
 ## Running locally
 
-Running the project locally is useful when inspecting the exact thesis-submission version of the dashboard, especially if the online application has changed after the thesis.
+Running the project locally is useful for development, testing, or inspecting a specific checked-out version of the dashboard.
 
 You need to have Node.js installed on your computer. Installing Node.js also installs `npm`, which is used to install and run the frontend application.
 
