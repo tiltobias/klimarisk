@@ -3,21 +3,6 @@
   text-underline-offset: 2px;
   position: relative;
 }
-/* .tooltipReference.hasText::after, */
-/* .tooltipReference::after, */
-.never {
-  content: "?";
-  display: block;
-  position: absolute;
-  font-size: 0.7rem;
-  font-weight: 400;
-  top: -.0em;
-  right: -.6em;
-  width: .6em;
-  height: 1em;
-  line-height: 1em;
-  text-align: center;
-}
 
 .tooltip {
   margin-bottom: .1em;
@@ -27,7 +12,7 @@
   z-index: 1000;
   font-size: .8em;
   max-width: 40em;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
 }
 
 .tooltipArrow {

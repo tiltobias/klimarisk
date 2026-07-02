@@ -46,7 +46,7 @@
   line-height: 1em;
   padding-left: var(--detail-padding);
   padding-block: var(--detail-padding);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   transition: 0;
 }
 

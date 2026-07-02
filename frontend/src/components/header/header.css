@@ -50,10 +50,10 @@ header h1 a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
+  font-weight: var(--font-weight-normal);
 }
 .headerControls .selected {
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
   border-bottom: 2px solid var(--c-text);
 }
 

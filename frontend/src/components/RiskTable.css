@@ -134,5 +134,5 @@ td.indexCol::before {
 tr.selected .highlightedCol,
 tr.selected .selectedCol {
   background-color: var(--c-selected);
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 }
