@@ -9,11 +9,14 @@
   --font-weight-normal: 400;
   --font-weight-bold: 700;
 
-  --c-bg1: #fff;
-  --c-bg2: #eee;
-  --c-bg3: #ddd;
-  --c-bg4: #888;
+  --c-bg1: #fefeff;
+  --c-bg2: #fefeff;
+  --c-bg3: #cde5ec;
+  /* --c-bg2: #e6f0ec; */
+  --c-bg4: #63a9be;
+  /* --c-bg2: #154d56; */
   --c-text: #000;
+  --c-text2: #888;
   --c-accent: #000;
   --c-accent2: #444;
   --c-highlighted: #eee;

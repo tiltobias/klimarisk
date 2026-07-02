@@ -39,7 +39,7 @@ header h1 a {
 }
 
 .headerControls .label {
-  color: var(--c-bg4);
+  color: var(--c-text2);
 }
 
 .headerControls button {

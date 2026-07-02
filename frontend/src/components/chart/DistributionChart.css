@@ -1,6 +1,6 @@
 .chartContainer {
   user-select: none;
-  background-color: var(--c-bg3);
+  background-color: var(--c-bg1);
   min-height: 12em;
   overflow: hidden;
   flex-grow: 1;
