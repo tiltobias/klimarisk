@@ -29,14 +29,16 @@ for year in dm["years"]:
         iKomNr = str(row["iKomNr"]).zfill(4) # Ensure 4-digit kommune number
 
         kommune_data_year_byKommune = {
-            "name": row["KomNavn"],
+            "klimarisk_name": row["KomNavn"],
+            "klimarisk_indicator_number": 0,
         }
         for determinant in dm["determinants"]:
             for indicator in determinant["indicators"]:
                 indicator_value = row[fixKey(indicator["col_name"], year["key"])]
                 if pd.isna(indicator_value):
-                    indicator_value = 0 # TODO: decide how to handle missing values, currently set to 0
+                    continue
 
+                kommune_data_year_byKommune["klimarisk_indicator_number"] += 1
                 kommune_data_year_byKommune[indicator["key"]] = indicator_value
 
                 # Add metric [] to byMetric dictionary if it doesnt exist

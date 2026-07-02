@@ -34,7 +34,8 @@ type DataModel = {
 };
 
 type KommuneData = {
-  name: string;
+  klimarisk_name: string;
+  klimarisk_indicator_number: number;
   [key: MetricKey]: number;
 }
 
@@ -79,7 +80,11 @@ export type DistributionKey =
   | { type: "metric"; key: MetricKey}
 
 const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number => {
-  return metrics.reduce((acc, metric) => acc + (metric.disabled ? 0 : (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key])), 0)
+  return metrics.reduce(
+    (acc, metric) => 
+      acc + (metric.disabled || kommune[metric.key] === undefined ? 0 : (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key])), 
+    0
+  ) / kommune.klimarisk_indicator_number; // Normalize by number of indicators to avoid bias towards elements with more metrics
 }
 
 const defaultRiskColors = [
@@ -349,7 +354,7 @@ const useDataStore = create<DataStore>((set, get) => ({
         ? cache.years[selectedYear].byKommune[komNr][dist.key]
         : data.years[selectedYear].byKommune[komNr][dist.key];
     const [minRisk, maxRisk] = getDistributionDomain(dist) ?? [0, 0];
-    if (minRisk === maxRisk) return 'gray'; // Avoid division by zero and invalid risk values
+    if (minRisk === maxRisk || risk === undefined) return 'gray'; // Avoid division by zero and invalid risk values
     const colorIndex = Math.floor((risk - minRisk) / (maxRisk - minRisk) * colors.length);
     return colors[Math.min(colorIndex, colors.length - 1)];
   },

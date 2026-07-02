@@ -63,7 +63,7 @@ function RiskTable() {
       const kommuneData = data.years[selectedYear].byKommune[k as KommuneNr];
       const kommuneCache = cache.years[selectedYear].byKommune[k as KommuneNr];
       return {
-        name: kommuneData.name as string,
+        klimarisk_name: kommuneData.klimarisk_name as string,
         komNr: k,
         totalRisk: kommuneCache.totalRisk as number,
         ...Object.fromEntries(dataModel.elements.map(e => [e.key, kommuneCache[e.key]])),
@@ -71,7 +71,7 @@ function RiskTable() {
       }
     });
     return tmp as {
-      name: string;
+      klimarisk_name: string;
       komNr: KommuneNr;
       totalRisk: number;
       [key: string]: string | number;
@@ -199,7 +199,7 @@ function RiskTable() {
                 {index + 1}
               </td>
               <td className="kommuneCol">
-                {row.name}
+                {row.klimarisk_name}
               </td>
               <td
                 className={`${highlightedDistribution && highlightedDistribution.type === "risk" ? "highlightedCol" : ""} ${selectedDistribuion.type === "risk" ? "selectedCol" : ""}`}
@@ -211,7 +211,7 @@ function RiskTable() {
                   key={`${index}-${headerIndex}`}
                   className={`${(highlightedDistribution && highlightedDistribution?.type !== "risk" && highlightedDistribution.key === header.key)  ? "highlightedCol" : ""} ${selectedDistribuion.type !== "risk" && selectedDistribuion.key === header.key ? "selectedCol" : ""}`}
                 >
-                  {row[header.key] !== null && row[header.key] !== undefined ? (row[header.key] as number).toFixed(0) : ''}
+                  {row[header.key] !== null && row[header.key] !== undefined ? (row[header.key] as number).toFixed(0) : '-'}
                 </td>
               ))}
             </tr>

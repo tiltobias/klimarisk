@@ -19,7 +19,7 @@ function KommuneLabel({ mouseOnMap }: Props) {
         <>
           {highlightedKommune && data && selectedYear && (
             <div className="kommuneLabel">
-              {data.years[selectedYear].byKommune[highlightedKommune].name}
+              {data.years[selectedYear].byKommune[highlightedKommune].klimarisk_name}
             </div>
           )}
         </>
@@ -27,7 +27,7 @@ function KommuneLabel({ mouseOnMap }: Props) {
         <>
           {/* {selectedKommune && data && selectedYear && (
             <div className="kommuneLabel">
-              {data.years[selectedYear].byKommune[selectedKommune].name}
+              {data.years[selectedYear].byKommune[selectedKommune].klimarisk_name}
             </div>
           )} */}
         </>
