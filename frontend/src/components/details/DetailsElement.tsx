@@ -70,7 +70,7 @@ function DetailsElement({ e }: Props) {
         </div>
       </button>
       <ul>
-        {sortedMetrics.map((m, mIndex) => (
+        {sortedMetrics.map((m, mIndex) => kommuneData && kommuneData[m.key] !== undefined && (
           <DetailsMetric 
             key={`${e.key}-${mIndex}`} 
             m={m} 
