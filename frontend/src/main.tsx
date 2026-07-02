@@ -7,6 +7,11 @@ import "@fontsource/source-sans-pro/400.css";
 import "@fontsource/source-sans-pro/700.css";
 import "@fontsource/raleway/700.css";
 
+
+import { viewMode } from './hooks/getUrlParams.ts';
+document.documentElement.dataset.viewMode = viewMode;
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

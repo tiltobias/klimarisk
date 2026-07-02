@@ -87,13 +87,7 @@ const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number =>
   ) / kommune.klimarisk_indicator_number; // Normalize by number of indicators to avoid bias towards elements with more metrics
 }
 
-const defaultRiskColors = [
-  '#f7ded0',
-  '#f5b490',
-  '#ec844c',
-  '#e35205',
-  '#a63d05'
-]
+import { defaultRiskColors } from '../assets/colors';
 
 interface DataStore {
   dataModel: DataModel | null;
