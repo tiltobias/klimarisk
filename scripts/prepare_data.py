@@ -1,9 +1,16 @@
 import pandas as pd
 import json
 
-file = "./scripts/kommunerangering+2024+-+datasett.xlsx"
+file = "./scripts/tblKommunerangering2026.xlsx"
 out_path = "./frontend/public/data/kommune_data.json"
 out_path_model = "./frontend/public/data/kommune_data_model.json"
+
+
+def getYearSheet(year: str):
+    return f"KomRang_{year}"
+
+def getIndicatorColumn(indicator: str, year: str):
+    return f"{indicator}_{year}_0_100"
 
 
 # Workaround column names containg year, TODO: possibly define changed excel norm
@@ -19,7 +26,7 @@ kommune_data = {
 }
 
 for year in dm["years"]:
-    df = pd.read_excel(file, sheet_name=year["sheet_name"])
+    df = pd.read_excel(file, sheet_name=getYearSheet(year["key"]))
 
     kommune_data_year = {
         "byKommune": {},
@@ -30,15 +37,15 @@ for year in dm["years"]:
 
         kommune_data_year_byKommune = {
             "klimarisk_name": row["KomNavn"],
-            "klimarisk_indicator_number": 0,
+            "klimarisk_indicator_number": {},
         }
         for determinant in dm["determinants"]:
             for indicator in determinant["indicators"]:
-                indicator_value = row[fixKey(indicator["col_name"], year["key"])]
+                indicator_value = row[getIndicatorColumn(indicator["key"], year["key"])]
                 if pd.isna(indicator_value):
                     continue
 
-                kommune_data_year_byKommune["klimarisk_indicator_number"] += 1
+                kommune_data_year_byKommune["klimarisk_indicator_number"][determinant["key"]] = kommune_data_year_byKommune["klimarisk_indicator_number"].get(determinant["key"], 0) + 1
                 kommune_data_year_byKommune[indicator["key"]] = indicator_value
 
                 # Add metric [] to byMetric dictionary if it doesnt exist
@@ -69,6 +76,7 @@ kommune_data_model = {
             "key": indicator["key"],
             "name": indicator["name"],
             **({"description": indicator["description"]} if "description" in indicator else {}),
+            **({"url": indicator["url"]} if "url" in indicator else {}),
             **({"invert": indicator["invert"]} if "invert" in indicator else {}),
         } for indicator in determinant["indicators"]],
     } for determinant in dm["determinants"]],

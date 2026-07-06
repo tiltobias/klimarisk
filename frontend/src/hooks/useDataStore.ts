@@ -35,7 +35,9 @@ type DataModel = {
 
 type KommuneData = {
   klimarisk_name: string;
-  klimarisk_indicator_number: number;
+  klimarisk_indicator_number: {
+    [key: ElementKey]: number;
+  };
   [key: MetricKey]: number;
 }
 
@@ -79,12 +81,12 @@ export type DistributionKey =
   | { type: "element"; key: ElementKey}
   | { type: "metric"; key: MetricKey}
 
-const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number => {
+const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData, elementKey: ElementKey): number => {
   return metrics.reduce(
     (acc, metric) => 
       acc + (metric.disabled || kommune[metric.key] === undefined ? 0 : (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key])), 
     0
-  ) / kommune.klimarisk_indicator_number; // Normalize by number of indicators to avoid bias towards elements with more metrics
+  ) / kommune.klimarisk_indicator_number[elementKey]; // Normalize by number of indicators to avoid bias towards elements with more metrics
 }
 
 const defaultRiskColors = [
@@ -327,12 +329,12 @@ const useDataStore = create<DataStore>((set, get) => ({
     const metrics = dataModel.elements.find(el => el.key === elementKey)!.metrics
     const kommune = data.years[year].byKommune[komNr]
 
-    const tmpRes = sumInvertibleValues(metrics, kommune)
+    const tmpRes = sumInvertibleValues(metrics, kommune, elementKey)
     let min = Infinity
     let max = -Infinity
     for (const year of Object.values(data.years)) {
       for (const kom of Object.values(year.byKommune)) {
-        const calculatedRisk = sumInvertibleValues(metrics, kom)
+        const calculatedRisk = sumInvertibleValues(metrics, kom, elementKey)
         if (calculatedRisk < min) min = calculatedRisk;
         if (calculatedRisk > max) max = calculatedRisk;
       }

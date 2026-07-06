@@ -29,7 +29,7 @@ function RiskTable() {
 
   const handleSort = (key: string, invert?: boolean) => {
     // Special case for kommune name (and inverted): Ascending -> Descending -> default
-    if (key === "name" || invert) {
+    if (key === "klimarisk_name" || invert) {
       if (sortKey !== key) { // First click on this column
         setSortKey(key);
         setSortAscending(true);
@@ -140,10 +140,10 @@ function RiskTable() {
               #
             </th>
             <th className="kommuneCol">
-              <button type="button" onClick={() => handleSort("name")}>
+              <button type="button" onClick={() => handleSort("klimarisk_name")}>
                 {l(t.table.kommune)}
                 <div className="sortIcon">
-                  {sortKey === "name" && (
+                  {sortKey === "klimarisk_name" && (
                     sortAscending ? <ArrowUp /> : <ArrowDown />
                   )}
                 </div>
