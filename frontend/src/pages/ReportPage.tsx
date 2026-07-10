@@ -1,23 +1,25 @@
 import "./ReportPage.css";
-import { PDFViewer } from '@react-pdf/renderer';
+import useLanguageStore, { t } from '../hooks/useLanguageStore';
 import ReportDocument from '../components/report/ReportDocument';
+import ReportViewer from "../components/report/ReportViewer";
+import LanguageSelect from "../components/header/LanguageSelect";
+import Header from "../components/header/Header";
 
 
 function ReportPage() {
-
+  const { l } = useLanguageStore();
 
   return (
     <div className="report-page">
       <aside>
-        <h1>Report Page</h1>
+        <Header noControls />
+        <h1>
+          {l(t.report.title)}
+          <LanguageSelect />
+        </h1>
         <p>This is the report page.</p>
       </aside>
-      <PDFViewer 
-        className="pdf-viewer"
-        showToolbar={false}
-      >
-        <ReportDocument />
-      </PDFViewer>
+      <ReportViewer document={<ReportDocument />} />
     </div>
   )
 }

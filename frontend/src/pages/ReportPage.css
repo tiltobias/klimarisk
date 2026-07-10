@@ -10,16 +10,13 @@
   flex: 1;
 }
 
-.pdf-viewer {
-  
-  width: min(calc(100vh * 210 / 297), 60vw);
+.reportViewer {
+  --total-padding: .3em;
+  width: min(calc((100vh - 2 * var(--total-padding)) * 210 / 297), 60vw);
   aspect-ratio: 210 / 297;
   height: auto;
+  box-sizing: content-box;
+  border: var(--total-padding) solid var(--c-bg4);
 
-  background-color: red;
-  box-sizing: border-box;
-  border: none;
-  outline: none;
-  padding: none;
 
 }

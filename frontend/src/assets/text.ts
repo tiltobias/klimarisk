@@ -147,6 +147,22 @@ const text = {
       no: "Generer rapport",
     },
   },
+  report: {
+    title: {
+      en: "Municipality climate risk report",
+      no: "Kommunal klimarisikorapport",
+    },
+    viewer: {
+      generating: {
+        en: "Generating report...",
+        no: "Genererer rapport...",
+      },
+      error: {
+        en: "Could not generate report.",
+        no: "Kunne ikke generere rapport.",
+      },
+    },
+  },
 };
 
 export default text;
