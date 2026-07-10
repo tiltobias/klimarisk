@@ -157,7 +157,7 @@ const useDataStore = create<DataStore>((set, get) => ({
       });
     });
 
-    const selectedYear = dataModel.years[dataModel.years.length - 1].key; // TODO: Make default year property in kommune_data_model.json?
+    const selectedYear = get().selectedYear ?? dataModel.years[dataModel.years.length - 1].key; // TODO: Make default year property in kommune_data_model.json?
     set({ dataModel, data, selectedYear });
 
     get().refreshCacheDeep();

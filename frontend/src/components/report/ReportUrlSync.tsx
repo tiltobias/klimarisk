@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useDataStore, { type KommuneNr, type Year } from "../../hooks/useDataStore";
 import useLanguageStore, { type Language } from "../../hooks/useLanguageStore";
@@ -6,6 +6,7 @@ import useLanguageStore, { type Language } from "../../hooks/useLanguageStore";
 
 function ReportUrlSync() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const {
     selectedKommune,
@@ -19,55 +20,49 @@ function ReportUrlSync() {
     setLanguage,
   } = useLanguageStore();
 
-  // URL -> Zustand
+  // Read the URL once, after the data has loaded.
   useEffect(() => {
-    if (!data) return;
+    if (!data || isInitialized) return;
 
     const kommuneParam = searchParams.get("k");
     const yearParam = searchParams.get("y");
     const languageParam = searchParams.get("l");
 
     const validYear =
-      yearParam && yearParam in data.years
+      yearParam !== null && yearParam in data.years
         ? (yearParam as Year)
         : null;
 
     const validKommune =
-      kommuneParam &&
-      validYear &&
+      kommuneParam !== null &&
+      validYear !== null &&
       kommuneParam in data.years[validYear].byKommune
         ? (kommuneParam as KommuneNr)
         : null;
 
-    const validLanguage =
+    const validLanguage: Language | null =
       languageParam === "no" || languageParam === "en"
-        ? (languageParam as Language)
+        ? languageParam
         : null;
 
-    if (validKommune && validKommune !== selectedKommune) {
-      setSelectedKommune(validKommune);
-    }
+    if (validYear) setSelectedYear(validYear);
+    if (validKommune) setSelectedKommune(validKommune);
+    if (validLanguage) setLanguage(validLanguage);
 
-    if (validYear && validYear !== selectedYear) {
-      setSelectedYear(validYear);
-    }
-
-    if (validLanguage && validLanguage !== language) {
-      setLanguage(validLanguage);
-    }
+    setIsInitialized(true);
   }, [
+    data,
+    isInitialized,
     searchParams,
-    selectedKommune,
-    selectedYear,
-    language,
     setSelectedKommune,
     setSelectedYear,
     setLanguage,
-    data,
   ]);
 
-  // Zustand -> URL
+  // After initialization, keep the URL synchronized with Zustand.
   useEffect(() => {
+    if (!isInitialized) return;
+
     setSearchParams(currentParams => {
       const nextParams = new URLSearchParams(currentParams);
 
@@ -90,6 +85,7 @@ function ReportUrlSync() {
       replace: true,
     });
   }, [
+    isInitialized,
     selectedKommune,
     selectedYear,
     language,
