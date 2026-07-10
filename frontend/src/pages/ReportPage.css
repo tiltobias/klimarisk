@@ -1,0 +1,25 @@
+
+.report-page {
+  display: flex;
+  flex-direction: row;
+  /* height: 100vh; */
+  width: 100vw;
+}
+
+.report-page > aside {
+  flex: 1;
+}
+
+.pdf-viewer {
+  
+  width: min(calc(100vh * 210 / 297), 60vw);
+  aspect-ratio: 210 / 297;
+  height: auto;
+
+  background-color: red;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  padding: none;
+
+}
