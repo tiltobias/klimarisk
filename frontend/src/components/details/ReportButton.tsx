@@ -1,14 +1,30 @@
+import useDataStore from '../../hooks/useDataStore';
 import useLanguageStore, { t } from '../../hooks/useLanguageStore';
 import { Link } from 'react-router-dom';
 import { Download } from 'lucide-react';
 
 function ReportButton() {
-  const { l } = useLanguageStore();
+  const {
+    selectedKommune,
+    selectedYear,
+  } = useDataStore();
+  const { 
+    language,
+    l,
+  } = useLanguageStore();
+
+  const params = new URLSearchParams(location.search);
+  if (selectedKommune) params.set("k", selectedKommune);
+  if (selectedYear) params.set("y", selectedYear);
+  params.set("l", language);
 
   return (
     <div className="reportButton">
       <Link
-        to="/report"
+        to={{
+          pathname: "/report",
+          search: params.toString(),
+        }}
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -6,6 +6,7 @@ import Header from "../components/header/Header";
 import DistributionSelect from "../components/chart/DistributionSelect";
 import MunicipalitySelect from "../components/report/MunicipalitySelect";
 import YearSelect from "../components/report/YearSelect";
+import ReportUrlSync from "../components/report/ReportUrlSync";
 
 
 function ReportPage() {
@@ -13,6 +14,7 @@ function ReportPage() {
 
   return (
     <div className="reportPage">
+      <ReportUrlSync />
       <main>
         <Header noControls />
         <div className="reportPageContent">
