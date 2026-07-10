@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import "./DetailedStats.css";
 import DetailsRisk from "./DetailsRisk";
 import useLanguageStore, { t, type Language } from "../../hooks/useLanguageStore";
+import ReportButton from "./ReportButton";
 
 export type RankMetric = {
   name: Record<Language, string>;
@@ -86,6 +87,8 @@ function DetailedStats() {
       ) : (
         <DetailsRisk r={ranks} />
       )}
+
+      <ReportButton />
     </div>
   )
 }

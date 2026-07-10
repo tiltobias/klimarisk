@@ -141,7 +141,11 @@ const text = {
         en: "The number represents the selected municipality's placement among all municipalities in its own county. Ranking number 1 means the selected municipality is the worst in its county, with no other municipalities in the county having a worse value.",
         no: "Nummeret representerer den valgte kommunens plassering blant alle kommunene i fylket sitt. Å være rangert nummer 1 betyr at den valgte kommunen er verst i fylket, og at ingen andre kommuner i fylket har en verre verdi.",
       },
-    }
+    },
+    generateReport: {
+      en: "Generate Report",
+      no: "Generer rapport",
+    },
   },
 };
 
