@@ -2,23 +2,50 @@ import "./ReportPage.css";
 import useLanguageStore, { t } from '../hooks/useLanguageStore';
 import ReportDocument from '../components/report/ReportDocument';
 import ReportViewer from "../components/report/ReportViewer";
-import LanguageSelect from "../components/header/LanguageSelect";
 import Header from "../components/header/Header";
+import DistributionSelect from "../components/chart/DistributionSelect";
+import MunicipalitySelect from "../components/report/MunicipalitySelect";
+import YearSelect from "../components/report/YearSelect";
 
 
 function ReportPage() {
   const { l } = useLanguageStore();
 
   return (
-    <div className="report-page">
-      <aside>
+    <div className="reportPage">
+      <main>
         <Header noControls />
-        <h1>
-          {l(t.report.title)}
-          <LanguageSelect />
-        </h1>
-        <p>This is the report page.</p>
-      </aside>
+        <div className="reportPageContent">
+          <h1>
+            {l(t.report.title)}
+          </h1>
+
+          <h2>
+            {l(t.report.selectMunicipality)}
+          </h2>
+          <p>
+            {l(t.report.selectMunicipalityDescription)}
+          </p>
+          <MunicipalitySelect />
+
+          <h2>
+            {l(t.report.selectYear)}
+          </h2>
+          <p>
+            {l(t.report.selectYearDescription)}
+          </p>
+          <YearSelect />
+
+          <h2>
+            {l(t.report.selectDistribution)}
+          </h2>
+          <p>
+            {l(t.report.selectDistributionDescription)}
+          </p>
+          <DistributionSelect />
+
+        </div>
+      </main>
       <ReportViewer document={<ReportDocument />} />
     </div>
   )

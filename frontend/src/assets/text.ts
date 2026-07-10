@@ -162,6 +162,30 @@ const text = {
         no: "Kunne ikke generere rapport.",
       },
     },
+    selectMunicipality: {
+      en: "Select municipality",
+      no: "Velg kommune",
+    },
+    selectMunicipalityDescription: {
+      en: "Select the municipality you want to generate a report for.",
+      no: "Velg kommunen du ønsker å generere en rapport for.",
+    },
+    selectYear: {
+      en: "Select year",
+      no: "Velg år",
+    },
+    selectYearDescription: {
+      en: "Select the year you want to generate a report for.",
+      no: "Velg året du ønsker å generere en rapport for.",
+    },
+    selectDistribution: {
+      en: "Select distribution",
+      no: "Velg fordeling",
+    },
+    selectDistributionDescription: {
+      en: "Select the distribution you want to show in the report.",
+      no: "Velg fordelingen du ønsker å vise i rapporten.",
+    },
   },
 };
 

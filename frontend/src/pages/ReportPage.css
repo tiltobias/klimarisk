@@ -1,12 +1,11 @@
 
-.report-page {
+.reportPage {
   display: flex;
   flex-direction: row;
-  /* height: 100vh; */
   width: 100vw;
 }
 
-.report-page > aside {
+.reportPage > main {
   flex: 1;
 }
 
@@ -17,6 +16,12 @@
   height: auto;
   box-sizing: content-box;
   border: var(--total-padding) solid var(--c-bg4);
+}
 
+.reportPageContent {
+  padding: 1em;
+}
 
+.reportPageContent h1 {
+  margin-top: 0;
 }

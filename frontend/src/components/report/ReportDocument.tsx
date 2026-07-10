@@ -1,3 +1,4 @@
+import useDataStore from "../../hooks/useDataStore";
 import {
   Document,
   Page,
@@ -22,14 +23,25 @@ const styles = StyleSheet.create({
 });
 
 function MunicipalityReportDocument() {
+
+  const {
+    selectedKommune, 
+    selectedYear, 
+    // selectedDistribution,
+    data, 
+  } = useDataStore();
+
+  const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
+  
+
   return (
     <Document title="Municipality climate risk report">
       <Page size="A4" style={styles.page}>
         <Text style={styles.title}>Municipality climate risk report</Text>
 
         <View style={styles.section}>
-          <Text>Trondheim</Text>
-          <Text>Time period: 2100</Text>
+          <Text>{selectedKommune} {kommuneData && kommuneData.klimarisk_name}</Text>
+          <Text>Time period: {selectedYear}</Text>
         </View>
       </Page>
     </Document>
