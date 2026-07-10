@@ -1,4 +1,5 @@
 import useDataStore from "../../hooks/useDataStore";
+import useLanguageStore, { t } from "../../hooks/useLanguageStore";
 import {
   Document,
   Page,
@@ -25,24 +26,30 @@ const styles = StyleSheet.create({
 function MunicipalityReportDocument() {
 
   const {
-    selectedKommune, 
-    selectedYear, 
-    // selectedDistribution,
-    data, 
+    selectedKommune,
+    selectedYear,
+    data,
+    dataModel,
   } = useDataStore();
+  const { l } = useLanguageStore();
 
   const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
-  
+  const yearInfo = dataModel && selectedYear ? dataModel.years.find(year => year.key === selectedYear) : undefined;
+
 
   return (
-    <Document title="Municipality climate risk report">
+    <Document title={l(t.report.title)}>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.title}>Municipality climate risk report</Text>
+        {dataModel && kommuneData && yearInfo && (
+          <>
+            <Text style={styles.title}>{l(t.report.title)}</Text>
 
-        <View style={styles.section}>
-          <Text>{selectedKommune} {kommuneData && kommuneData.klimarisk_name}</Text>
-          <Text>Time period: {selectedYear}</Text>
-        </View>
+            <View style={styles.section}>
+              <Text>{selectedKommune} {kommuneData.klimarisk_name}</Text>
+              <Text>{selectedYear} {l(yearInfo.description)}</Text>
+            </View>
+          </>
+        )}
       </Page>
     </Document>
   );
