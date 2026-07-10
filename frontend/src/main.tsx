@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 
 import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/600.css";
 import "@fontsource/source-sans-pro/700.css";
 import "@fontsource/raleway/700.css";
 

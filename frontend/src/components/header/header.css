@@ -75,6 +75,7 @@ header h1 a {
   height: var(--header-height);
   padding: 0;
   font-size: 1rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .languageIcon {
@@ -92,4 +93,5 @@ header h1 a {
   width: 2em;
   line-height: var(--header-height);
   text-align: left;
+  font-size: 1.1em;
 }
