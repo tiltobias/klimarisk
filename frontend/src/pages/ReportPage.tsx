@@ -7,6 +7,7 @@ import DistributionSelect from "../components/chart/DistributionSelect";
 import MunicipalitySelect from "../components/report/MunicipalitySelect";
 import YearSelect from "../components/report/YearSelect";
 import ReportUrlSync from "../components/report/ReportUrlSync";
+import { reportStylesRevision } from "../components/report/reportStyles";
 
 
 function ReportPage() {
@@ -48,7 +49,7 @@ function ReportPage() {
 
         </div>
       </main>
-      <ReportViewer document={<ReportDocument />} />
+      <ReportViewer document={<ReportDocument />} key={reportStylesRevision} />
     </div>
   )
 }

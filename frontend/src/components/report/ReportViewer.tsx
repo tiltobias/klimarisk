@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import useLanguageStore, { t } from '../../hooks/useLanguageStore';
-import { BlobProvider, type DocumentProps } from '@react-pdf/renderer';
+import { useEffect, useRef, useState } from "react";
+import useLanguageStore, { t } from "../../hooks/useLanguageStore";
+import { BlobProvider, type DocumentProps } from "@react-pdf/renderer";
 import {
   Document as PDFDocument,
   Page as PDFPage,
@@ -13,7 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 interface Props {
-  document: React.ReactElement<DocumentProps, string>;
+  document: React.ReactElement<DocumentProps>;
 }
 
 

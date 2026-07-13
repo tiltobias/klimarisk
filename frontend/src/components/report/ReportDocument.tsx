@@ -1,27 +1,13 @@
 import useDataStore from "../../hooks/useDataStore";
 import useLanguageStore, { t } from "../../hooks/useLanguageStore";
+import "./reportFonts";
 import {
   Document,
   Page,
-  StyleSheet,
   Text,
   View,
-} from '@react-pdf/renderer';
-
-const styles = StyleSheet.create({
-  page: {
-    padding: 40,
-    fontSize: 10,
-    fontFamily: 'Helvetica',
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 16,
-  },
-  section: {
-    marginBottom: 16,
-  },
-});
+} from "@react-pdf/renderer";
+import { reportStyles as s } from "./reportStyles";
 
 function MunicipalityReportDocument() {
 
@@ -39,12 +25,12 @@ function MunicipalityReportDocument() {
 
   return (
     <Document title={l(t.report.title)}>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={s.page}>
         {dataModel && kommuneData && yearInfo && (
           <>
-            <Text style={styles.title}>{l(t.report.title)}</Text>
+            <Text style={s.title}>{l(t.report.title)}</Text>
 
-            <View style={styles.section}>
+            <View style={s.section}>
               <Text>{selectedKommune} {kommuneData.klimarisk_name}</Text>
               <Text>{selectedYear} {l(yearInfo.description)}</Text>
             </View>
