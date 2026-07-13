@@ -28,12 +28,39 @@ function MunicipalityReportDocument() {
       <Page size="A4" style={s.page}>
         {dataModel && kommuneData && yearInfo && (
           <>
-            <Text style={s.title}>{l(t.report.title)}</Text>
+            <View style={s.heading}>
+              <Text style={s.title} bookmark={l(t.report.title)}>
+                {l(t.report.title)}
+              </Text>
 
-            <View style={s.section}>
-              <Text>{selectedKommune} {kommuneData.klimarisk_name}</Text>
-              <Text>{selectedYear} {l(yearInfo.description)}</Text>
+              <View style={s.section}>
+                <Text>{selectedKommune} {kommuneData.klimarisk_name}</Text>
+                <Text>{selectedYear} {l(yearInfo.description)}</Text>
+              </View>
+
+              <Text>
+                {}
+              </Text>
             </View>
+
+            <View style={s.sidebanner} fixed></View>
+            {/* <View style={s.banner}></View> */}
+
+            {dataModel.elements.map(element => (
+              <View key={element.key}>
+                <Text style={s.label}>
+                  {l(element.name)}
+                </Text>
+                {element.metrics.map(metric => (
+                  <View key={`${element.key}-${metric.key}`}>
+                    <Text>
+                      {l(metric.name)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ))}
+            
           </>
         )}
       </Page>

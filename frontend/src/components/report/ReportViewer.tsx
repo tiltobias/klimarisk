@@ -6,6 +6,7 @@ import {
   Page as PDFPage,
   pdfjs,
 } from "react-pdf";
+import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -64,7 +65,7 @@ function ReportPreview({ url }: { url: string }) {
           <PDFPage
             pageNumber={1}
             width={width}
-            renderTextLayer={false}
+            renderTextLayer={true}
             renderAnnotationLayer={false}
           />
         </PDFDocument>
