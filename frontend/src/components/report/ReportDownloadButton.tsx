@@ -2,7 +2,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { Download } from "lucide-react";
 
 import useLanguageStore, { t } from "../../hooks/useLanguageStore";
-import ReportDocument from "./ReportDocument";
+import ReportDocument from "./document/ReportDocument";
 
 function ReportDownloadButton() {
   const { l } = useLanguageStore();

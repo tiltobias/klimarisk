@@ -1,13 +1,13 @@
 import "./ReportPage.css";
 import useLanguageStore, { t } from '../hooks/useLanguageStore';
-import ReportDocument from '../components/report/ReportDocument';
+import ReportDocument from '../components/report/document/ReportDocument';
 import ReportViewer from "../components/report/ReportViewer";
 import Header from "../components/header/Header";
 import DistributionSelect from "../components/chart/DistributionSelect";
 import MunicipalitySelect from "../components/report/MunicipalitySelect";
 import YearSelect from "../components/report/YearSelect";
 import ReportUrlSync from "../components/report/ReportUrlSync";
-import { reportStylesRevision } from "../components/report/reportStyles";
+import { reportStylesRevision } from "../components/report/document/reportStyles";
 import ReportDownloadButton from "../components/report/ReportDownloadButton";
 
 

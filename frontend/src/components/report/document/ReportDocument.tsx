@@ -1,5 +1,5 @@
-import useDataStore from "../../hooks/useDataStore";
-import useLanguageStore, { t } from "../../hooks/useLanguageStore";
+import useDataStore from "../../../hooks/useDataStore";
+import useLanguageStore, { t } from "../../../hooks/useLanguageStore";
 import "./reportFonts";
 import {
   Document,
