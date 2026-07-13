@@ -8,6 +8,7 @@ import MunicipalitySelect from "../components/report/MunicipalitySelect";
 import YearSelect from "../components/report/YearSelect";
 import ReportUrlSync from "../components/report/ReportUrlSync";
 import { reportStylesRevision } from "../components/report/reportStyles";
+import ReportDownloadButton from "../components/report/ReportDownloadButton";
 
 
 function ReportPage() {
@@ -46,6 +47,8 @@ function ReportPage() {
             {l(t.report.selectDistributionDescription)}
           </p>
           <DistributionSelect />
+
+          <ReportDownloadButton />
 
         </div>
       </main>

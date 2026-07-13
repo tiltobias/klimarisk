@@ -186,6 +186,20 @@ const text = {
       en: "Select the distribution you want to show in the report.",
       no: "Velg fordelingen du ønsker å vise i rapporten.",
     },
+    download: {
+      download: {
+        en: "Download report",
+        no: "Last ned rapport",
+      },
+      generating: {
+        en: "Generating report",
+        no: "Genererer rapport",
+      },
+      fileName: {
+        en: "municipality-climate-risk-report.pdf",
+        no: "kommunal-klimarisikorapport.pdf",
+      },
+    },
   },
 };
 

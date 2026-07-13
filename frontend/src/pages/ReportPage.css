@@ -25,3 +25,19 @@
 .reportPageContent h1 {
   margin-top: 0;
 }
+
+
+.reportDownloadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+  font-size: 1.1rem;
+}
+.reportDownloadButton a {
+  text-decoration: none;
+  color: var(--c-text);
+}
+.reportDownloadButton button {
+  display: flex;
+}
