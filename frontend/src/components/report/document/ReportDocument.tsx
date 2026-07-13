@@ -8,6 +8,7 @@ import {
   View,
 } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
+import ColorTree from "./ColorTree";
 
 function MunicipalityReportDocument() {
 
@@ -15,18 +16,20 @@ function MunicipalityReportDocument() {
     selectedKommune,
     selectedYear,
     data,
+    cache,
     dataModel,
   } = useDataStore();
   const { l } = useLanguageStore();
 
   const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
+  const kommuneCache = cache && selectedYear && selectedKommune ? cache.years[selectedYear].byKommune[selectedKommune] : null;
   const yearInfo = dataModel && selectedYear ? dataModel.years.find(year => year.key === selectedYear) : undefined;
 
 
   return (
     <Document title={l(t.report.title)}>
       <Page size="A4" style={s.page}>
-        {dataModel && kommuneData && yearInfo && (
+        {dataModel && kommuneData && kommuneCache && yearInfo && selectedKommune && (
           <>
             <View style={s.heading}>
               <Text style={s.title} bookmark={l(t.report.title)}>
@@ -46,20 +49,7 @@ function MunicipalityReportDocument() {
             <View style={s.sidebanner} fixed></View>
             {/* <View style={s.banner}></View> */}
 
-            {dataModel.elements.map(element => (
-              <View key={element.key}>
-                <Text style={s.label}>
-                  {l(element.name)}
-                </Text>
-                {element.metrics.map(metric => (
-                  <View key={`${element.key}-${metric.key}`}>
-                    <Text>
-                      {l(metric.name)}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            ))}
+            <ColorTree />
             
           </>
         )}
