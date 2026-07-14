@@ -200,6 +200,12 @@ const text = {
         no: "kommunal-klimarisikorapport.pdf",
       },
     },
+    document: {
+      urlLabel: {
+        en: "Detailed description:",
+        no: "Detaljert forklaring:",
+      },
+    },
   },
 } as const;
 

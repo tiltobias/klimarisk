@@ -3,6 +3,7 @@ import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
 import ColorTree from "./ColorTree";
 import type { ReportSnapshot } from "./reportSnapshot";
+import ElementPage from "./ElementPage";
 
 
 interface Props {
@@ -47,13 +48,15 @@ function MunicipalityReportDocument({ report }: Props) {
             </View>
 
             <View style={s.sidebanner} fixed></View>
-            {/* <View style={s.banner}></View> */}
 
             <ColorTree report={report} />
             
           </>
         )}
       </Page>
+      {dataModel.elements.map(element => (
+        <ElementPage report={report} element={element} key={element.key} />
+      ))}
     </Document>
   );
 }

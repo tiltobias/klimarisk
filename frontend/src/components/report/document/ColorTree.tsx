@@ -18,7 +18,7 @@ function ColorTree({ report }: Props) {
   } = report;
 
   return (
-    <View>
+    <View style={s.colorTree}>
       <View style={s.treeItem.risk}>
         <View style={[s.treeItem.colorBox, {
           backgroundColor: dataModel.risk.color,

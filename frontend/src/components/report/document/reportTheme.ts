@@ -32,5 +32,10 @@ export const reportTheme = {
 
     mapBorder: "#000",
   },
+
+  x: {
+    mg: 20,
+    aside: 90,
+  },
   
 } as const;
