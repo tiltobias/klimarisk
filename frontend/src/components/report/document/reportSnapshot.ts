@@ -7,6 +7,7 @@ type Metric = {
   key: MetricKey;
   name: Record<Language, string>; 
   description?: Record<Language, string>;
+  url?: string;
   color: string;
   invert?: boolean;
   // disabled: boolean;
