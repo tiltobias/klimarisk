@@ -31,6 +31,10 @@ function ReportPage() {
   const report: ReportSnapshot | null = useMemo(() => {
     if (!selectedKommune || !selectedYear || !data || !cache || !dataModel) return null;
 
+    const kommuneData = data.years[selectedYear].byKommune[selectedKommune];
+    const kommuneCache = cache.years[selectedYear].byKommune[selectedKommune];
+
+    // dataModel sorted by risk contribution and containing colors
     const reportDataModel = {
       ...dataModel,
       elements: dataModel.elements.map(element => ({
@@ -39,8 +43,17 @@ function ReportPage() {
         metrics: element.metrics.map(metric => ({
           ...metric,
           color: getRiskColor(selectedKommune, { type: "metric", key: metric.key }),
-        }))
-      })),
+        })).sort((a, b) => {
+          const aVal = a.invert ? 100 - kommuneData[a.key] : kommuneData[a.key];
+          const bVal = b.invert ? 100 - kommuneData[b.key] : kommuneData[b.key];
+          if (element.invert) return (aVal - bVal);
+          return -(aVal - bVal)
+        })
+      })).sort((a, b) => {
+        const aVal = a.invert ? 100 - kommuneCache[a.key] : kommuneCache[a.key];
+        const bVal = b.invert ? 100 - kommuneCache[b.key] : kommuneCache[b.key];
+        return -(aVal - bVal)
+      }),
       risk: {
         color: getRiskColor(selectedKommune, { type: "risk" }),
       },
