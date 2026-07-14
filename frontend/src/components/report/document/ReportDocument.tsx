@@ -1,25 +1,25 @@
-import useDataStore from "../../../hooks/useDataStore";
-import useLanguageStore, { t } from "../../../hooks/useLanguageStore";
 import "./reportFonts";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-} from "@react-pdf/renderer";
+import { Document, Page, Text, View } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
 import ColorTree from "./ColorTree";
+import type { ReportSnapshot } from "./reportSnapshot";
 
-function MunicipalityReportDocument() {
 
+interface Props {
+  report: ReportSnapshot;
+}
+
+
+function MunicipalityReportDocument({ report }: Props) {
   const {
     selectedKommune,
     selectedYear,
     data,
     cache,
     dataModel,
-  } = useDataStore();
-  const { l } = useLanguageStore();
+    l,
+    t,
+  } = report;
 
   const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
   const kommuneCache = cache && selectedYear && selectedKommune ? cache.years[selectedYear].byKommune[selectedKommune] : null;
@@ -49,7 +49,7 @@ function MunicipalityReportDocument() {
             <View style={s.sidebanner} fixed></View>
             {/* <View style={s.banner}></View> */}
 
-            <ColorTree />
+            <ColorTree report={report} />
             
           </>
         )}

@@ -1,13 +1,15 @@
-import useDataStore from "../../../hooks/useDataStore";
-import useLanguageStore, { t } from "../../../hooks/useLanguageStore";
 import "./reportFonts";
-import {
-  Text,
-  View,
-} from "@react-pdf/renderer";
+import { Text, View } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
+import type { ReportSnapshot } from "./reportSnapshot";
 
-function ColorTree() {
+
+interface Props {
+  report: ReportSnapshot
+}
+
+
+function ColorTree({ report }: Props) {
 
   const {
     selectedKommune,
@@ -15,9 +17,9 @@ function ColorTree() {
     data,
     cache,
     dataModel,
-    getRiskColor,
-  } = useDataStore();
-  const { l } = useLanguageStore();
+    l,
+    t,
+  } = report;
 
   const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
   const kommuneCache = cache && selectedYear && selectedKommune ? cache.years[selectedYear].byKommune[selectedKommune] : null;
@@ -42,7 +44,7 @@ function ColorTree() {
     <View>
       <View style={s.treeItem.risk}>
         <View style={[s.treeItem.colorBox, {
-          backgroundColor: getRiskColor(selectedKommune, { type: "risk" }),
+          backgroundColor: dataModel.risk.color,
         }]} />
 
         <Text style={s.label}>
@@ -50,10 +52,12 @@ function ColorTree() {
         </Text>
       </View>
       {sortedElements.map(element => (
-        <View key={element.key}>
+        <View key={element.key} style={{
+          marginVertical: 2,
+        }}>
           <View style={s.treeItem.element}>
             <View style={[s.treeItem.colorBox, {
-              backgroundColor: getRiskColor(selectedKommune, { type: "element", key: element.key }),
+              backgroundColor: element.color,
             }]} />
 
             <Text style={s.label}>
@@ -64,7 +68,7 @@ function ColorTree() {
             <View key={`${element.key}-${metric.key}`}>
               <View style={s.treeItem.metric}>
                 <View style={[s.treeItem.colorBox, {
-                  backgroundColor: getRiskColor(selectedKommune, { type: "metric", key: metric.key }),
+                  backgroundColor: metric.color,
                 }]} />
 
                 <Text>

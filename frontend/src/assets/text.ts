@@ -201,6 +201,6 @@ const text = {
       },
     },
   },
-};
+} as const;
 
 export default text;

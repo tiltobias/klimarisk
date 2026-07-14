@@ -28,7 +28,7 @@ type YearInfo = {
   description?: Record<Language, string>;
 }
 
-type DataModel = { 
+export type DataModel = { 
   elements: Element[];
   years: YearInfo[];
 };
@@ -44,7 +44,7 @@ type KommuneData = {
 export type Year = string & { readonly __brand: unique symbol};
 export type KommuneNr = string & { readonly __brand: unique symbol};
 
-type Data = {
+export type Data = {
   years: {
     [year: Year]: {
       byKommune: {
@@ -62,7 +62,7 @@ type KommuneCache = {
   totalRisk: number;
 }
 
-type Cache = {
+export type Cache = {
   years: {
     [year: Year]: {
       byKommune: { // Access values for a specific kommune

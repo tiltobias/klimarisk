@@ -3,14 +3,21 @@ import { Download } from "lucide-react";
 
 import useLanguageStore, { t } from "../../hooks/useLanguageStore";
 import ReportDocument from "./document/ReportDocument";
+import type { ReportSnapshot } from "./document/reportSnapshot";
 
-function ReportDownloadButton() {
+
+interface Props {
+  report: ReportSnapshot;
+}
+
+
+function ReportDownloadButton({ report }: Props) {
   const { l } = useLanguageStore();
 
   return (
     <div className="reportDownloadButton">
       <PDFDownloadLink
-        document={<ReportDocument />}
+        document={<ReportDocument report={report} />}
         fileName={l(t.report.download.fileName)}
       >
         {({ loading }) => (
