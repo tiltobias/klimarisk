@@ -45,6 +45,7 @@ export default ReportViewer;
 function ReportPreview({ url }: { url: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const [numPages, setNumPages] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -61,13 +62,16 @@ function ReportPreview({ url }: { url: string }) {
   return (
     <div ref={containerRef} className="reportViewer">
       {width > 0 && (
-        <PDFDocument file={url}>
-          <PDFPage
-            pageNumber={1}
-            width={width}
-            renderTextLayer={true}
-            renderAnnotationLayer={false}
-          />
+        <PDFDocument file={url} onLoadSuccess={(pdf) => setNumPages(pdf.numPages)}>
+          {Array.from({ length: numPages }, (_, index) => (
+            <PDFPage
+              key={index}
+              pageNumber={index+1}
+              width={width}
+              renderTextLayer={true}
+              renderAnnotationLayer={false}
+            />
+          ))}
         </PDFDocument>
       )}
     </div>

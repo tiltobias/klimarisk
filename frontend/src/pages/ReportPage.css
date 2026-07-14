@@ -16,6 +16,13 @@
   height: auto;
   box-sizing: content-box;
   border: var(--total-padding) solid var(--c-bg4);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scroll-snap-type: y proximity;
+}
+.reportViewer .react-pdf__Page {
+  scroll-snap-align: start;
 }
 
 .reportPageContent {
