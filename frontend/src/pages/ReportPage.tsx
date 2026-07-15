@@ -36,36 +36,46 @@ function ReportPage() {
 
     // dataModel sorted by risk contribution and containing colors
     const reportDataModel = {
-      ...dataModel,
       elements: dataModel.elements.map(element => ({
         ...element,
-        color: getRiskColor(selectedKommune, { type: "element", key: element.key }),
+
         metrics: element.metrics.map(metric => ({
           ...metric,
+
           color: getRiskColor(selectedKommune, { type: "metric", key: metric.key }),
+          value: kommuneData[metric.key],
+
         })).sort((a, b) => {
           const aVal = a.invert ? 100 - kommuneData[a.key] : kommuneData[a.key];
           const bVal = b.invert ? 100 - kommuneData[b.key] : kommuneData[b.key];
           if (element.invert) return (aVal - bVal);
           return -(aVal - bVal)
-        })
+        }),
+
+        color: getRiskColor(selectedKommune, { type: "element", key: element.key }),
+        value: kommuneCache[element.key],
+
       })).sort((a, b) => {
         const aVal = a.invert ? 100 - kommuneCache[a.key] : kommuneCache[a.key];
         const bVal = b.invert ? 100 - kommuneCache[b.key] : kommuneCache[b.key];
         return -(aVal - bVal)
       }),
+
       risk: {
         color: getRiskColor(selectedKommune, { type: "risk" }),
+        value: kommuneCache.totalRisk,
       },
+      kommune: {
+        key: selectedKommune,
+        name: kommuneData.klimarisk_name,
+      },
+      year: dataModel.years.find(year => year.key === selectedYear)!,
+
     } as const;
 
 
     return {
-      selectedKommune,
-      selectedYear,
-      data,
-      cache,
-      dataModel: reportDataModel,
+      ...reportDataModel,
       language,
       l: (entry) => entry ? entry[language] : undefined,
       t,
@@ -117,8 +127,8 @@ function ReportPage() {
         <ReportViewer 
           key={[
             reportStylesRevision,
-            report.selectedKommune,
-            report.selectedYear,
+            report.kommune.key,
+            report.year.key,
             report.language
           ].join("-")}   
           document={<ReportDocument report={report} />} 

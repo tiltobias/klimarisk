@@ -13,24 +13,14 @@ interface Props {
 
 function MunicipalityReportDocument({ report }: Props) {
   const {
-    selectedKommune,
-    selectedYear,
-    data,
-    cache,
-    dataModel,
     l,
     t,
   } = report;
 
-  const kommuneData = data && selectedYear && selectedKommune ? data.years[selectedYear].byKommune[selectedKommune] : null;
-  const kommuneCache = cache && selectedYear && selectedKommune ? cache.years[selectedYear].byKommune[selectedKommune] : null;
-  const yearInfo = dataModel && selectedYear ? dataModel.years.find(year => year.key === selectedYear) : undefined;
-
-
   return (
     <Document title={l(t.report.title)}>
       <Page size="A4" style={s.page}>
-        {dataModel && kommuneData && kommuneCache && yearInfo && selectedKommune && (
+        {report && (
           <>
             <View style={s.heading}>
               <Text style={s.title} bookmark={l(t.report.title)}>
@@ -38,8 +28,8 @@ function MunicipalityReportDocument({ report }: Props) {
               </Text>
 
               <View style={s.section}>
-                <Text>{selectedKommune} {kommuneData.klimarisk_name}</Text>
-                <Text>{selectedYear} {l(yearInfo.description)}</Text>
+                <Text>{report.kommune.key} {report.kommune.name}</Text>
+                <Text>{l(report.year.name)} {l(report.year.description)}</Text>
               </View>
 
               <Text>
@@ -54,7 +44,7 @@ function MunicipalityReportDocument({ report }: Props) {
           </>
         )}
       </Page>
-      {dataModel.elements.map(element => (
+      {report.elements.map(element => (
         <ElementPage report={report} element={element} key={element.key} />
       ))}
     </Document>

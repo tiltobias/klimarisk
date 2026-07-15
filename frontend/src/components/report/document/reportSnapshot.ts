@@ -1,4 +1,4 @@
-import type { KommuneNr, Year, Data, Cache, ElementKey, MetricKey } from "../../../hooks/useDataStore";
+import type { KommuneNr, Year, ElementKey, MetricKey } from "../../../hooks/useDataStore";
 
 import { type Language, t } from "../../../hooks/useLanguageStore";
 
@@ -8,19 +8,23 @@ type Metric = {
   name: Record<Language, string>; 
   description?: Record<Language, string>;
   url?: string;
-  color: string;
   invert?: boolean;
   // disabled: boolean;
+
+  color: string;
+  value: number;
 }
 
 type Element = {
   key: ElementKey;
   name: Record<Language, string>;
   description?: Record<Language, string>;
-  color: string;
   invert?: boolean;
   // disabled: boolean;
   metrics: Metric[];
+
+  color: string;
+  value: number;
 }
 
 type YearInfo = {
@@ -31,22 +35,22 @@ type YearInfo = {
 
 type ReportDataModel = { 
   elements: Element[];
-  years: YearInfo[];
   risk: {
     color: string;
+    value: number;
   };
+  kommune: {
+    key: KommuneNr;
+    name: string;
+  };
+  year: YearInfo;
 };
 
 
-export interface ReportSnapshot {
-  selectedKommune: KommuneNr,
-  selectedYear: Year,
-
-  dataModel: ReportDataModel,
-  data: Data,
-  cache: Cache,
-
-  language: Language,
-  l: (entry: Record<Language, string> | undefined) => string | undefined,
-  t: typeof t,
-}
+export type ReportSnapshot = 
+  ReportDataModel 
+  & {
+    language: Language,
+    l: (entry: Record<Language, string> | undefined) => string | undefined,
+    t: typeof t,
+  }

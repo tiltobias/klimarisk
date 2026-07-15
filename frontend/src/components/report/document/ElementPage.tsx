@@ -5,7 +5,7 @@ import { reportStyles as s } from "./reportStyles";
 
 interface Props {
   report: ReportSnapshot;
-  element: ReportSnapshot["dataModel"]["elements"][number];
+  element: ReportSnapshot["elements"][number];
 }
 
 function ElementPage({ report, element }: Props) {

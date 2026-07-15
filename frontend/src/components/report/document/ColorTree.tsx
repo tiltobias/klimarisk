@@ -12,7 +12,6 @@ interface Props {
 function ColorTree({ report }: Props) {
 
   const {
-    dataModel,
     l,
     t,
   } = report;
@@ -21,14 +20,14 @@ function ColorTree({ report }: Props) {
     <View style={s.colorTree}>
       <View style={s.treeItem.risk}>
         <View style={[s.treeItem.colorBox, {
-          backgroundColor: dataModel.risk.color,
+          backgroundColor: report.risk.color,
         }]} />
 
         <Text style={s.label}>
           {l(t.common.totalRisk)}
         </Text>
       </View>
-      {dataModel.elements.map(element => (
+      {report.elements.map(element => (
         <View key={element.key} style={{
           marginVertical: 2,
         }}>
