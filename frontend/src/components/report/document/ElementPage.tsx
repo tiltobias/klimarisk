@@ -59,8 +59,8 @@ function ElementPage({ report, element }: Props) {
           <Text style={s.description}>
             {l(metric.description)}
           </Text>
-          <Text>
-            <Text style={s.label}>{l(t.report.document.urlLabel)}</Text> <Link src={metric.url}>{metric.url}</Link>
+          <Text style={s.url}>
+            <Text style={s.description}>{l(t.report.document.urlLabel)}</Text> <Link src={metric.url}>{metric.url}</Link>
           </Text>
 
           <Text>

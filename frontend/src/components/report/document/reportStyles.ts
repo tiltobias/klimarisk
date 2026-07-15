@@ -61,6 +61,12 @@ export const reportStyles = StyleSheet.create({
 
   description: {
     fontStyle: "italic" as const,
+    fontSize: t.font.size * 0.9,
+  },
+
+  url: {
+    fontStyle: "normal" as const,
+    marginBottom: t.font.size * .4,
   },
 
   sidebanner: {
