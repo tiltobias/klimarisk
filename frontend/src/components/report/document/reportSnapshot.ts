@@ -2,6 +2,12 @@ import type { KommuneNr, Year, ElementKey, MetricKey } from "../../../hooks/useD
 
 import { type Language, t } from "../../../hooks/useLanguageStore";
 
+type StatValues = {
+  color: string;
+  value: number;
+  rank: number;
+  rankFylke: number;
+}
 
 type Metric = {
   key: MetricKey;
@@ -11,9 +17,7 @@ type Metric = {
   invert?: boolean;
   // disabled: boolean;
 
-  color: string;
-  value: number;
-}
+} & StatValues;
 
 type Element = {
   key: ElementKey;
@@ -23,9 +27,7 @@ type Element = {
   // disabled: boolean;
   metrics: Metric[];
 
-  color: string;
-  value: number;
-}
+} & StatValues;
 
 type YearInfo = {
   key: Year;
@@ -35,10 +37,7 @@ type YearInfo = {
 
 type ReportDataModel = { 
   elements: Element[];
-  risk: {
-    color: string;
-    value: number;
-  };
+  risk: StatValues;
   kommune: {
     key: KommuneNr;
     name: string;
