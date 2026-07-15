@@ -32,7 +32,8 @@ export const reportStyles = StyleSheet.create({
     backgroundColor: t.c.bg3,
     width: "100%",
     height: 120,
-    padding: "40 40 0 40",
+    padding: t.x.mg * 3,
+    paddingBottom: 0,
   },
 
   title: {
@@ -40,6 +41,7 @@ export const reportStyles = StyleSheet.create({
     fontWeight: t.font.weight.bold,
     fontSize: t.font.size * 2.2,
     marginBottom: t.x.mg / 2,
+    paddingRight: t.x.mg * 2.5,
   },
 
   section: {
@@ -49,10 +51,34 @@ export const reportStyles = StyleSheet.create({
   smallTitle: {
     fontWeight: t.font.weight.medium,
     fontSize: t.font.size * 1.2,
+    paddingRight: t.x.mg * 2.5,
   },
 
   label: {
     // fontStyle: "italic" as const,
+  },
+  titleLabel: {
+    fontWeight: t.font.weight.normal,
+    fontSize: t.font.size * 1.8,
+  },
+  smallTitleLabel: {
+    fontWeight: t.font.weight.normal,
+    fontSize: t.font.size * 1.1,
+  },
+
+  score: {
+    display: "flex" as const,
+    flexDirection: "row" as const,
+    alignItems: "center" as const,
+    fontFamily: t.font.body,
+  },
+  scoreVal: {
+    width: t.font.size * 3.5,
+    textAlign: "right" as const,
+  },
+  titleScoreVal: {
+    width: t.font.size * 6.2,
+    textAlign: "right" as const,
   },
 
   emph: {
@@ -62,6 +88,7 @@ export const reportStyles = StyleSheet.create({
   description: {
     fontStyle: "italic" as const,
     fontSize: t.font.size * 0.9,
+    paddingRight: t.x.mg * 2.5,
   },
 
   url: {
@@ -94,7 +121,8 @@ export const reportStyles = StyleSheet.create({
   },
 
   elementPage: {
-
+    paddingTop: t.x.mg * 2,
+    paddingBottom: t.x.mg * 2,
 
     heading: {
       backgroundColor: t.c.bg3,
@@ -102,6 +130,7 @@ export const reportStyles = StyleSheet.create({
       padding: t.x.mg / 2,
       margin: t.x.mg / 2,
       marginBottom: 0,
+      marginTop: t.x.mg * -1.5,
       position: "relative" as const,
       display: "flex" as const,
       flexDirection: "row" as const,
@@ -136,6 +165,12 @@ export const reportStyles = StyleSheet.create({
       position: "absolute" as const,
       top: t.x.mg,
       left: -t.x.aside + t.x.mg,
+    },
+
+    titleBox: {
+      display: "flex" as const,
+      flexDirection: "row" as const,
+      justifyContent: "space-between" as const,
     },
   },
 
