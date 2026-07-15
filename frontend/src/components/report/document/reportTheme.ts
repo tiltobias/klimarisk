@@ -34,8 +34,8 @@ export const reportTheme = {
   },
 
   x: {
-    mg: 20,
-    aside: 90,
+    mg: 15,
+    aside: 60,
   },
   
 } as const;

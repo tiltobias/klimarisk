@@ -79,9 +79,27 @@ export const reportStyles = StyleSheet.create({
 
     heading: {
       backgroundColor: t.c.bg3,
-      minHeight: 100,
-      padding: "40 20 20 20",
-      margin: t.x.mg,
+      minHeight: 80,
+      padding: t.x.mg / 2,
+      margin: t.x.mg / 2,
+      position: "relative" as const,
+      display: "flex" as const,
+      flexDirection: "row" as const,
+    },
+
+    headingColorBox: {
+      width: t.x.aside - t.x.mg * 2,
+      alignSelf: "stretch" as const,
+      flexShrink: 0,
+    },
+
+    headingContent: {
+      paddingTop: t.x.mg * 1.5,
+      paddingBottom: t.x.mg * 0.5,
+      marginLeft: t.x.mg * 2,
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 0,
     },
 
     section: {

@@ -20,13 +20,19 @@ function ElementPage({ report, element }: Props) {
       <View style={s.sidebanner} fixed></View>
 
       <View style={s.elementPage.heading}>
-        <Text style={s.title}>
-          {l(element.name)}
-        </Text>
-        
-        <Text>
-          {l(element.description)}
-        </Text>
+        <View style={[s.elementPage.headingColorBox, {
+          backgroundColor: element.color,
+        }]} />
+
+        <View style={s.elementPage.headingContent}>
+          <Text style={s.title}>
+            {l(element.name)}
+          </Text>
+          
+          <Text>
+            {l(element.description)}
+          </Text>
+        </View>
       </View>
 
       {element.metrics.map(metric => (
