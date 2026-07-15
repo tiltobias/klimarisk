@@ -78,6 +78,8 @@ function ReportPage() {
       kommune: {
         key: selectedKommune,
         name: kommuneData.klimarisk_name,
+        numKommuneNorge: Object.keys(yearData.byKommune).length,
+        numKommuneFylke: getFylkeDistribution(selectedKommune, { type: "risk" }, selectedYear)!.length,
       },
       year: dataModel.years.find(year => year.key === selectedYear)!,
 

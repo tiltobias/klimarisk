@@ -1,6 +1,7 @@
 import type { ReportSnapshot } from "./reportSnapshot";
 import { Page, View, Text, Link } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
+import { ordinal } from "../../../hooks/useLanguageStore";
 
 
 interface Props {
@@ -29,8 +30,18 @@ function ElementPage({ report, element }: Props) {
             {l(element.name)}
           </Text>
           
-          <Text>
+          <Text style={s.description}>
             {l(element.description)}
+          </Text>
+
+          <Text>
+            <Text style={s.label}>{l(t.report.document.score)}</Text> <Text style={s.emph}>{element.value.toFixed(2)}</Text> 
+          </Text>
+          <Text>
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+          </Text>
+          <Text>
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
           </Text>
         </View>
       </View>
@@ -41,15 +52,25 @@ function ElementPage({ report, element }: Props) {
             backgroundColor: metric.color,
           }]} />
 
-          <Text style={s.label}>
+          <Text style={s.smallTitle}>
             {l(metric.name)}
           </Text>
 
-          <Text>
+          <Text style={s.description}>
             {l(metric.description)}
           </Text>
           <Text>
-            {l(t.report.document.urlLabel)} <Link src={metric.url}>{metric.url}</Link>
+            <Text style={s.label}>{l(t.report.document.urlLabel)}</Text> <Link src={metric.url}>{metric.url}</Link>
+          </Text>
+
+          <Text>
+            <Text style={s.label}>{l(t.report.document.score)}</Text> <Text style={s.emph}>{metric.value.toFixed(2)}</Text> 
+          </Text>
+          <Text>
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+          </Text>
+          <Text>
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
           </Text>
           
         </View>

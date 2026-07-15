@@ -205,6 +205,32 @@ const text = {
         en: "Detailed description:",
         no: "Detaljert forklaring:",
       },
+      score: {
+        en: "Score:",
+        no: "Skår:",
+      },
+      ranked: {
+        p1: {
+          en: "Ranked",
+          no: "Rangert",
+        },
+        p2: {
+          en: "worst out of",
+          no: "verst av",
+        },
+        p3: {
+          en: "municipalities in",
+          no: "kommuner i",
+        },
+        norge: {
+          en: "Norway",
+          no: "Norge",
+        },
+        fylke: {
+          en: "the county",
+          no: "fylket",
+        },
+      },
     },
   },
 } as const;

@@ -41,6 +41,8 @@ type ReportDataModel = {
   kommune: {
     key: KommuneNr;
     name: string;
+    numKommuneNorge: number;
+    numKommuneFylke: number;
   };
   year: YearInfo;
 };

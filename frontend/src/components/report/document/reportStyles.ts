@@ -24,7 +24,7 @@ export const reportStyles = StyleSheet.create({
     fontFamily: t.font.body,
     fontWeight: t.font.weight.normal,
     color: t.c.text,
-    fontSize: 10,
+    fontSize: t.font.size,
     backgroundColor: t.c.bg1,
   },
 
@@ -38,16 +38,29 @@ export const reportStyles = StyleSheet.create({
   title: {
     fontFamily: t.font.heading,
     fontWeight: t.font.weight.bold,
-    fontSize: 22,
-    marginBottom: 16,
+    fontSize: t.font.size * 2.2,
+    marginBottom: t.x.mg / 2,
   },
 
   section: {
     marginBottom: 16,
   },
 
-  label: {
+  smallTitle: {
     fontWeight: t.font.weight.medium,
+    fontSize: t.font.size * 1.2,
+  },
+
+  label: {
+    // fontStyle: "italic" as const,
+  },
+
+  emph: {
+    fontWeight: t.font.weight.medium,
+  },
+
+  description: {
+    fontStyle: "italic" as const,
   },
 
   sidebanner: {
@@ -82,6 +95,7 @@ export const reportStyles = StyleSheet.create({
       minHeight: 80,
       padding: t.x.mg / 2,
       margin: t.x.mg / 2,
+      marginBottom: 0,
       position: "relative" as const,
       display: "flex" as const,
       flexDirection: "row" as const,
@@ -104,7 +118,8 @@ export const reportStyles = StyleSheet.create({
 
     section: {
       marginLeft: t.x.aside,
-      padding: t.x.mg,
+      paddingTop: t.x.mg,
+      paddingHorizontal: t.x.mg,
       position: "relative" as const,
       minHeight: t.x.aside,
     },
