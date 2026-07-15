@@ -20,6 +20,7 @@ export const reportTheme = {
     bg4: "#888",
 
     text: "#000",
+    text2: "#666",
 
     accent: "#000",
     accent2: "#444",

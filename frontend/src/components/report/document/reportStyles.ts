@@ -27,6 +27,14 @@ export const reportStyles = StyleSheet.create({
     fontSize: t.font.size,
     backgroundColor: t.c.bg1,
   },
+  
+  pageNumber: {
+    position: "absolute" as const,
+    bottom: t.x.mg * 2,
+    right: t.x.mg * 3.5,
+    fontSize: t.font.size * .9,
+    color: t.c.text2,
+  },
 
   heading: {
     backgroundColor: t.c.bg3,
@@ -122,7 +130,7 @@ export const reportStyles = StyleSheet.create({
 
   elementPage: {
     paddingTop: t.x.mg * 2,
-    paddingBottom: t.x.mg * 2,
+    paddingBottom: t.x.mg * 3,
 
     heading: {
       backgroundColor: t.c.bg3,
