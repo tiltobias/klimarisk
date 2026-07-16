@@ -2,22 +2,6 @@ import { StyleSheet } from "@react-pdf/renderer";
 import { reportTheme as t } from "./reportTheme";
 
 
-const treeItem = (level: number) => ({
-  fontSize: 10 * [1.6, 1.2, 1][level],
-  height: 22 * [1.6, 1.2, .7][level],
-
-  // backgroundColor: t.c.bg2,
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 5,
-  paddingVertical: [3, 3, 1][level],
-  paddingLeft: [5, 35, 65][level],
-
-  
-}) as const;
-
-
 export const reportStyles = StyleSheet.create({
   page: {
     padding: 0,
@@ -115,20 +99,6 @@ export const reportStyles = StyleSheet.create({
     position: "absolute" as const,
     top: 0,
     left: 0,
-  },
-
-  colorTree: {
-    marginLeft: 100,
-  },
-
-  treeItem: {
-    risk: treeItem(0),
-    element: treeItem(1),
-    metric: treeItem(2),
-    colorBox: {
-      height: "100%",
-      aspectRatio: "1 / 1",
-    },
   },
 
   titlePage: {

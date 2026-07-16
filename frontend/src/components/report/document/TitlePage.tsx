@@ -116,9 +116,6 @@ function TitlePage({ report }: Props) {
         </View>
       ))}
 
-
-      {/* <ColorTree report={report} /> */}
-
     </Page>
   )
 }
