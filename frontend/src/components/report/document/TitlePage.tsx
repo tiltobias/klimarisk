@@ -16,6 +16,14 @@ function TitlePage({ report }: Props) {
   return (
     <Page size="A4" style={s.page}>
     
+      <Text 
+        fixed
+        style={s.pageNumber}
+        render={({ pageNumber, totalPages }) => 
+          `${pageNumber} / ${totalPages}`
+        }
+      />
+
       <View style={s.sidebanner} fixed></View>
 
       <View style={s.heading} bookmark={l(t.report.title)}>
