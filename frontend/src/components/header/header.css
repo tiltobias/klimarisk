@@ -75,6 +75,7 @@ header h1 a {
   height: var(--header-height);
   padding: 0;
   font-size: 1rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .languageIcon {
@@ -92,4 +93,33 @@ header h1 a {
   width: 2em;
   line-height: var(--header-height);
   text-align: left;
+  font-size: 1.1em;
+}
+
+
+
+
+
+
+.reportButton {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.reportButton > a {
+  display: flex;
+  padding: 0 .8rem 0 .7rem;
+  height: var(--header-height);
+  color: var(--c-text);
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: var(--font-weight-medium);
+}
+
+.reportButton > a:hover {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--c-text);
 }

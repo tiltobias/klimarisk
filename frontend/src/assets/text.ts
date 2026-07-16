@@ -4,10 +4,6 @@ const text = {
       en: "Loading...",
       no: "Laster...",
     },
-    totalRisk: {
-      en: "Total Risk",
-      no: "Total Risk",
-    },
   },
   header: {
     layout: {
@@ -141,8 +137,100 @@ const text = {
         en: "The number represents the selected municipality's placement among all municipalities in its own county. Ranking number 1 means the selected municipality is the worst in its county, with no other municipalities in the county having a worse value.",
         no: "Nummeret representerer den valgte kommunens plassering blant alle kommunene i fylket sitt. Å være rangert nummer 1 betyr at den valgte kommunen er verst i fylket, og at ingen andre kommuner i fylket har en verre verdi.",
       },
-    }
+    },
+    generateReport: {
+      en: "Generate Report",
+      no: "Generer rapport",
+    },
   },
-};
+  report: {
+    title: {
+      en: "Municipality climate risk report",
+      no: "Kommunal klimarisikorapport",
+    },
+    viewer: {
+      generating: {
+        en: "Generating report...",
+        no: "Genererer rapport...",
+      },
+      error: {
+        en: "Could not generate report.",
+        no: "Kunne ikke generere rapport.",
+      },
+    },
+    selectMunicipality: {
+      en: "Select municipality",
+      no: "Velg kommune",
+    },
+    selectMunicipalityDescription: {
+      en: "Select the municipality you want to generate a report for.",
+      no: "Velg kommunen du ønsker å generere en rapport for.",
+    },
+    selectYear: {
+      en: "Select time period",
+      no: "Velg tidsperiode",
+    },
+    selectYearDescription: {
+      en: "Select the time period you want to generate a report for.",
+      no: "Velg tidsperioden du ønsker å generere en rapport for.",
+    },
+    download: {
+      download: {
+        en: "Download report",
+        no: "Last ned rapport",
+      },
+      generating: {
+        en: "Generating report",
+        no: "Genererer rapport",
+      },
+      fileName: {
+        en: "municipality-climate-risk-report.pdf",
+        no: "kommunal-klimarisikorapport.pdf",
+      },
+    },
+    document: {
+      urlLabel: {
+        en: "Detailed description:",
+        no: "Detaljert forklaring:",
+      },
+      score: {
+        en: "Score:",
+        no: "Skår:",
+      },
+      ranked: {
+        p1: {
+          en: "Ranked",
+          no: "Rangert",
+        },
+        p2: {
+          en: "worst out of",
+          no: "verst av",
+        },
+        p3: {
+          en: "municipalities in",
+          no: "kommuner i",
+        },
+        norge: {
+          en: "Norway",
+          no: "Norge",
+        },
+        fylke: {
+          en: "the county",
+          no: "fylket",
+        },
+      },
+      titlePage: {
+        chosenKommune: {
+          en: "Selected municipality:",
+          no: "Valgt kommune:",
+        },
+        chosenYear: {
+          en: "Selected time period:",
+          no: "Valgt tidsperiode:",
+        },
+      },
+    },
+  },
+} as const;
 
 export default text;

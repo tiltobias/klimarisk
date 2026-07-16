@@ -9,6 +9,7 @@ type Metric = {
   key: MetricKey;
   name: Record<Language, string>; 
   description?: Record<Language, string>;
+  url?: string;
   invert?: boolean;
   disabled: boolean;
 }
@@ -28,21 +29,29 @@ type YearInfo = {
   description?: Record<Language, string>;
 }
 
-type DataModel = { 
+type RiskInfo = {
+  name: Record<Language, string>;
+  description?: Record<Language, string>;
+}
+
+export type DataModel = { 
+  risk: RiskInfo;
   elements: Element[];
   years: YearInfo[];
 };
 
 type KommuneData = {
   klimarisk_name: string;
-  klimarisk_indicator_number: number;
+  klimarisk_indicator_number: {
+    [key: ElementKey]: number;
+  };
   [key: MetricKey]: number;
 }
 
 export type Year = string & { readonly __brand: unique symbol};
 export type KommuneNr = string & { readonly __brand: unique symbol};
 
-type Data = {
+export type Data = {
   years: {
     [year: Year]: {
       byKommune: {
@@ -60,7 +69,7 @@ type KommuneCache = {
   totalRisk: number;
 }
 
-type Cache = {
+export type Cache = {
   years: {
     [year: Year]: {
       byKommune: { // Access values for a specific kommune
@@ -79,12 +88,12 @@ export type DistributionKey =
   | { type: "element"; key: ElementKey}
   | { type: "metric"; key: MetricKey}
 
-const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData): number => {
+const sumInvertibleValues = (metrics: Metric[], kommune: KommuneData, elementKey: ElementKey): number => {
   return metrics.reduce(
     (acc, metric) => 
       acc + (metric.disabled || kommune[metric.key] === undefined ? 0 : (metric.invert === true ? 100-kommune[metric.key] : kommune[metric.key])), 
     0
-  ) / kommune.klimarisk_indicator_number; // Normalize by number of indicators to avoid bias towards elements with more metrics
+  ) / kommune.klimarisk_indicator_number[elementKey]; // Normalize by number of indicators to avoid bias towards elements with more metrics
 }
 
 import { defaultRiskColors } from '../assets/colors';
@@ -149,7 +158,7 @@ const useDataStore = create<DataStore>((set, get) => ({
       });
     });
 
-    const selectedYear = dataModel.years[dataModel.years.length - 1].key; // TODO: Make default year property in kommune_data_model.json?
+    const selectedYear = get().selectedYear ?? dataModel.years[dataModel.years.length - 1].key; // TODO: Make default year property in kommune_data_model.json?
     set({ dataModel, data, selectedYear });
 
     get().refreshCacheDeep();
@@ -321,12 +330,12 @@ const useDataStore = create<DataStore>((set, get) => ({
     const metrics = dataModel.elements.find(el => el.key === elementKey)!.metrics
     const kommune = data.years[year].byKommune[komNr]
 
-    const tmpRes = sumInvertibleValues(metrics, kommune)
+    const tmpRes = sumInvertibleValues(metrics, kommune, elementKey)
     let min = Infinity
     let max = -Infinity
     for (const year of Object.values(data.years)) {
       for (const kom of Object.values(year.byKommune)) {
-        const calculatedRisk = sumInvertibleValues(metrics, kom)
+        const calculatedRisk = sumInvertibleValues(metrics, kom, elementKey)
         if (calculatedRisk < min) min = calculatedRisk;
         if (calculatedRisk > max) max = calculatedRisk;
       }

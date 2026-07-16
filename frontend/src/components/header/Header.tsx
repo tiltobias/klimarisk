@@ -2,9 +2,15 @@ import './Header.css';
 import YearSelect from './YearSelect';
 import LayoutSelect from './LayoutSelect';
 import LanguageSelect from './LanguageSelect';
+import ReportButton from './ReportButton';
 
 
-function Header() {
+interface Props {
+  noControls?: boolean;
+}
+
+
+function Header({ noControls }: Props) {
 
   return (
     <header>
@@ -13,10 +19,13 @@ function Header() {
           Klimarisk
         </a>
       </h1>
-      <div className="headerControls">
-        <LayoutSelect />
-        <YearSelect />
-      </div>
+      {!noControls && (
+        <div className="headerControls">
+          <LayoutSelect />
+          <YearSelect />
+          <ReportButton />
+        </div>
+      )}
       <LanguageSelect />
     </header>
   )

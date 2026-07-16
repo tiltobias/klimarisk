@@ -8,6 +8,7 @@
   --font-heading: Raleway, var(--font-body); /* TODO: Ensure these font is loaded */
   --font-weight-normal: 400;
   --font-weight-bold: 700;
+  --font-weight-medium: 600;
 
   --c-bg1: #fff;
   --c-bg2: #eee;

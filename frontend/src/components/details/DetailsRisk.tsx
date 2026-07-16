@@ -72,7 +72,9 @@ function DetailsRisk({ r }: Props) {
           style={{ "--risk-color": selectedKommune ? getRiskColor(selectedKommune, { type: "risk" }) : null } as React.CSSProperties}
         ></div>
         <div className="detailsName">
-          {l(r.name)}:
+          <Tooltip text={l(r.description)}>
+            {l(r.name)}:
+          </Tooltip>
         </div>
         <div className="detailsRank">
           {r.rank}
