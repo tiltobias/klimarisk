@@ -41,7 +41,7 @@
     },
     "description": {
       "no": "Samlet indeks for klimarisiko.",
-      "en": ""
+      "en": "Composite index of climate risk."
     }
   },
   "determinants": [
@@ -51,9 +51,9 @@
         "en": "Hazard",
         "no": "Fare"
       },
-      "description":{
+      "description": {
         "no": "Summen av seks fareindikatorer uten vekting.",
-        "en": ""
+        "en": "The unweighted sum of six hazard indicators."
       },
       "indicators": [
         {
@@ -62,9 +62,9 @@
             "no": "Tørke",
             "en": "Drought"
           },
-          "description":{
+          "description": {
             "no": "Antall sammenhengende døgn for 15. juni-15. oktober med avrenning under 30-persentilen. Kilde: KSS.",
-            "en": ""
+            "en": "Number of consecutive days between 15 June and 15 October with runoff below the 30th percentile. Source: KSS."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-KJScCm"
         },
@@ -74,9 +74,9 @@
             "no": "Kraftig nedbør",
             "en": "Heavy precipitation"
           },
-          "description":{
+          "description": {
             "no": "99,7-persentilen for døgnnedbør, for år.",
-            "en": ""
+            "en": "The annual 99.7th percentile of daily precipitation."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-mHwj5z"
         },
@@ -86,9 +86,9 @@
             "no": "Kraftig vind",
             "en": "Strong wind"
           },
-          "description":{
+          "description": {
             "no": "99,7-persentil for døgnmiddelvind",
-            "en": ""
+            "en": "The 99.7th percentile of daily mean wind speed."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-Ott2YP"
         },
@@ -100,7 +100,7 @@
           },
           "description": {
             "no": "Romlig interpolasjon basert på flomberegninger gjort for 115 målepunkter. Aggregering til kommuner. Kilde: NVE.",
-            "en": ""
+            "en": "Spatial interpolation based on flood calculations for 115 measurement points, aggregated to the municipal level. Source: NVE."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-05IUmd"
         },
@@ -112,7 +112,7 @@
           },
           "description": {
             "no": "Oversvømmet landareal (i forhold til dagens middels høyvann) av dagens 1000 års stormflo og stormflosone for 2100. Landareal for 2050 oppnås ved linear interpolasjon. Landareal er kommunens areal minus arealet av store elver og innsjøer. Kilde: Kartverket.",
-            "en": ""
+            "en": "Land area inundated relative to the present-day mean high-water level by the current 1,000-year storm surge and the projected storm-surge zone for 2100. The land area for 2050 is obtained through linear interpolation. Land area is defined as the municipality's total area excluding large rivers and lakes. Source: the Norwegian Mapping Authority."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-o3FfMP"
         },
@@ -123,8 +123,8 @@
             "en": "Snow loss"
           },
           "description": {
-            "no": "Antall døgn i aret med snøvannekvivalent over 60 mm (omtrent 25 cm snødybde tidlig i sesongen). Absolutte tall kombinert med endringstall, høyde over havet og breddegrad for å representere tap av livsglede (skigåing), tap av inntekt (skiturisme) og tap av mental helse (mer mørke).",
-            "en": ""
+            "no": "Antall døgn i aret med snøvannekvivalent over 60 mm (omtrent 25 cm snødybde tidlig i sesongen). Absolutte tall kombinert med endringstall, høyde over havet og breddegrad for å representere tap av livsglede (skigåing), tap av inntekt (skiturisme) og tap av mental helse (mer mørke).",
+            "en": "Number of days per year with a snow water equivalent above 60 mm, corresponding to approximately 25 cm of snow depth early in the season. Absolute values are combined with projected changes, elevation and latitude to represent loss of recreational opportunities such as skiing, loss of income from ski tourism and adverse effects on mental health associated with darker winters."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-wIHe8Z"
         }
@@ -138,7 +138,7 @@
       },
       "description": {
         "no": "Summen av seks sårbarhetsindikatorer uten vekting.",
-        "en": ""
+        "en": "The unweighted sum of six vulnerability indicators."
       },
       "indicators": [
         {
@@ -147,9 +147,9 @@
             "no": "Befolkningstetthet",
             "en": "Population density"
           },
-          "description":{
+          "description": {
             "no": "SSB befolkningsframskrivninger kombinert med egne fremskrivninger av bebygd areal som har en egen utviklingsbane for arealnøytrale kommuner.",
-            "en": ""
+            "en": "Population projections from Statistics Norway combined with separate projections of built-up area, including a distinct development pathway for municipalities pursuing land-use neutrality."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-iKyN0P"
         },
@@ -159,9 +159,9 @@
             "no": "Barn 0-5 år",
             "en": "Children 0-5 years"
           },
-          "description":{
+          "description": {
             "no": "Vi anser sårbar befolkning som personer yngre enn 5 år. Desto større andel av befolkningen som er under 5 år, desto større er sårbarheten. For denne indikatoren har vi brukt befolkningsstatistikk fra SSB for  kommuner for 2025  og  framskrevet befolkningsdata for 2050  (vi brukte hovedalternativet).",
-            "en": ""
+            "en": "Children younger than five years are considered a vulnerable population group. The larger the proportion of the population below the age of five, the greater the vulnerability. This indicator uses municipal population statistics from Statistics Norway for 2025 and projected population data for 2050 based on the main projection alternative."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-1J6vbj"
         },
@@ -171,9 +171,9 @@
             "no": "Eldre 67+ år",
             "en": "Elderly 67+ years"
           },
-          "description":{
+          "description": {
             "no": "Vi anser sårbar befolkning som personer eldre enn 67 år. Desto større andel av befolkningen som er over 67 år, desto større er sårbarheten. For denne indikatoren har vi brukt befolkningsstatistikk fra SSB for  kommuner for 2025  og  framskrevet befolkningsdata for 2050  (vi brukte hovedalternativet).",
-            "en": ""
+            "en": "People aged 67 years or older are considered a vulnerable population group. The larger the proportion of the population above the age of 67, the greater the vulnerability. This indicator uses municipal population statistics from Statistics Norway for 2025 and projected population data for 2050 based on the main projection alternative."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-naEni8"
         },
@@ -183,9 +183,9 @@
             "no": "Primærnæring",
             "en": "Primary industry"
           },
-          "description":{
+          "description": {
             "no": "For temaet næringsliv legger vi til grunn at  kommuner som har en høy andel lokalt sysselsatte i næringer som er særlig utsatt for negativ påvirkning fra klimaendringer vil få flere utfordringer enn kommuner som har en annen næringsstruktur. Primærnæringene (fiske, oppdrett, fangst, jordbruk, og skogbruk) er særlig klimautsatte næringer. For å beregne denne indikatoren bruker vi data fra SSB: Sysselsatte 15-74 år, etter næring og sektor. Vi regner ut andel sysselsatte i jordbruk, skogbruk og fiske for 2022, og basert på historiske data gjør vi framskrivninger til 2050.",
-            "en": ""
+            "en": "For the business and industry dimension, municipalities with a high proportion of local employment in sectors particularly exposed to adverse climate-change impacts are assumed to face greater challenges than municipalities with a different economic structure. Primary industries, including fisheries, aquaculture, harvesting, agriculture and forestry, are considered particularly climate-sensitive. The indicator uses Statistics Norway data on employed persons aged 15-74 by industry and sector. The proportion employed in agriculture, forestry and fisheries is calculated for 2022 and projected to 2050 using historical data."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-z24i3v"
         },
@@ -197,7 +197,7 @@
           },
           "description": {
             "no": "Indikatoren er satt sammen av ulikhet uttrykt gjennom SSBs  Gini koeffisient  og velstand uttrykt med SSBs  disponibel inntekt . Disse statistikkvariablene er kombinert slik at desto lavere gjennomsnittlig inntekt og desto høyere gini-koeffisient, desto høyere sårbarhet.",
-            "en": ""
+            "en": "The indicator combines inequality, represented by Statistics Norway's Gini coefficient, with prosperity, represented by disposable income. These variables are combined so that lower average income and a higher Gini coefficient correspond to greater vulnerability."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-8KV7o3"
         },
@@ -207,9 +207,9 @@
             "no": "Utkjøringsmuligheter",
             "en": "Exit points"
           },
-          "description":{
+          "description": {
             "no": "Fremskrevet til 2050 mht befolkning. Ikke framskrevet mht vegnett, men planlagte vegprosjekter tilgjengelig fra NVDB endrer ikke på antall alternative veier.",
-            "en": ""
+            "en": "Projected to 2050 with respect to population. The road network itself is not projected, but planned road projects available from the Norwegian Road Database do not change the number of alternative routes."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-JU9etM"
         }
@@ -221,9 +221,9 @@
         "en": "Exposure",
         "no": "Eksponering"
       },
-      "description":{
+      "description": {
         "no": "Summen av fem eksponeringsindikatorer uten vekting.",
-        "en": ""
+        "en": "The unweighted sum of five exposure indicators."
       },
       "indicators": [
         {
@@ -232,9 +232,9 @@
             "no": "Skredskade",
             "en": "Landslide damage"
           },
-          "description":{
+          "description": {
             "no": "Skade på hus grunnet skred. Middel for første og andre del av perioden. Andre del av perioden er kombinert 2025 versjonen, Indekser for 2025 og 2050 lages basert på absolutte tall og endring mellom periodene.",
-            "en": ""
+            "en": "Damage to buildings caused by landslides. Mean values are calculated for the first and second parts of the period. The second part of the period is combined with the 2025 version. The indices for 2025 and 2050 are based on absolute values and the change between the periods."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-5Jz6OP"
         },
@@ -244,9 +244,9 @@
             "no": "Stormskade",
             "en": "Storm damage"
           },
-          "description":{
+          "description": {
             "no": "Skade på hus grunnet storm. Middel for første og andre del av perioden. Andre del av perioden er kombinert 2025 versjonen, Indekser for 2025 og 2050 lages basert på absolutte tall og endring mellom periodene.",
-            "en": ""
+            "en": "Damage to buildings caused by storms. Mean values are calculated for the first and second parts of the period. The second part of the period is combined with the 2025 version. The indices for 2025 and 2050 are based on absolute values and the change between the periods."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-N8geFB"
         },
@@ -256,9 +256,9 @@
             "no": "Stormfloskade",
             "en": "Storm surge damage"
           },
-          "description":{
+          "description": {
             "no": "Skade på hus grunnet stormflo. Middel for første og andre del av perioden. Andre del av perioden er kombinert 2025 versjonen, Indekser for 2025 og 2050 lages basert på absolutte tall og endring mellom periodene.",
-            "en": ""
+            "en": "Damage to buildings caused by storm surges. Mean values are calculated for the first and second parts of the period. The second part of the period is combined with the 2025 version. The indices for 2025 and 2050 are based on absolute values and the change between the periods."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-ws8zwB"
         },
@@ -268,9 +268,9 @@
             "no": "Flomskade",
             "en": "Flood damage"
           },
-          "description":{
+          "description": {
             "no": "Skade på hus grunnet flom. Middel for første og andre del av perioden. Andre del av perioden er kombinert 2025 versjonen, Indekser for 2025 og 2050 lages basert på absolutte tall og endring mellom periodene.",
-            "en": ""
+            "en": "Damage to buildings caused by flooding. Mean values are calculated for the first and second parts of the period. The second part of the period is combined with the 2025 version. The indices for 2025 and 2050 are based on absolute values and the change between the periods."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-JTZs5p"
         },
@@ -280,9 +280,9 @@
             "no": "Overvannsskade",
             "en": "Surface water damage"
           },
-          "description":{
+          "description": {
             "no": "Skade på hus grunnet overvann. Middel for første og andre del av perioden. Andre del av perioden er kombinert 2025 versjonen, Indekser for 2025 og 2050 lages basert på absolutte tall og endring mellom periodene.",
-            "en": ""
+            "en": "Damage to buildings caused by surface water flooding. Mean values are calculated for the first and second parts of the period. The second part of the period is combined with the 2025 version. The indices for 2025 and 2050 are based on absolute values and the change between the periods."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-HawoeS"
         }
@@ -296,7 +296,7 @@
       },
       "description": {
         "no": "Gjennomsnitt av opptil seks responsindikatorer med verdi, normalisert. Siden det er mangel på respons som bidrar til økt klimarisiko snur vi indikatoren for å bygge klimarisikoindeksen.",
-        "en": ""
+        "en": "The normalized mean of up to six response indicators with available values. Because a lack of response contributes to increased climate risk, the determinant is inverted when constructing the climate risk index."
       },
       "inverted": true,
       "indicators": [
@@ -308,7 +308,7 @@
           },
           "description": {
             "no": "Lokale tiltak med statlig støtte (MDir). Indikatoren er basert på en årlige oversikter over alle som har søkt om midler og alle som har fått midler for å gjennomføre klimatilpasningstiltak for perioden 2015 – 2025 (totalt 11 år).",
-            "en": ""
+            "en": "Local measures receiving central-government support through the Norwegian Environment Agency. The indicator is based on annual records of all applicants and recipients of funding for climate-adaptation measures during the period 2015-2025, covering a total of 11 years."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-KwrH7q"
         },
@@ -320,7 +320,7 @@
           },
           "description": {
             "no": "Vurdering av klimarisiko i kommunal planlegging. Indikatoren er basert på data fra DSBs årlige undersøkelsene gjennomført i årene 2022 - 2025.",
-            "en": ""
+            "en": "Assessment of climate risk in municipal planning. The indicator is based on data from annual surveys conducted by the Norwegian Directorate for Civil Protection between 2022 and 2025."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-P1tYnB"
         },
@@ -330,9 +330,9 @@
             "no": "Tiltak",
             "en": "Measures"
           },
-          "description":{
+          "description": {
             "no": "Kommunens egne tiltak for klimatilpasning og bærekraftsinnretning av arbeidet med klimatilpasning (Klimamonitor)",
-            "en": ""
+            "en": "The municipality's own climate-adaptation measures and the integration of sustainability into its climate-adaptation work, as recorded by Klimamonitor."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-TSuIW7"
         },
@@ -342,9 +342,9 @@
             "no": "Elvesikring",
             "en": "River protection"
           },
-          "description":{
+          "description": {
             "no": "NVEs sikringstiltak omfatter flom-, erosjon- og skred/rassikringer og miljøtiltak som er utført langs vassdrag i NVEs regi. Vi tar ut sikringstiltak som er kodet som miljøtiltak, og bruker de andre typene tiltak i konstruksjon av responsindikatoren.",
-            "en": ""
+            "en": "Protection measures implemented by the Norwegian Water Resources and Energy Directorate include measures against flooding, erosion, landslides and rockfalls, as well as environmental measures carried out along watercourses. Measures classified as environmental measures are excluded, while the remaining types are used to construct the response indicator."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-frQWvW"
         },
@@ -354,9 +354,9 @@
             "no": "Arealplan alder",
             "en": "Land-Use plan age"
           },
-          "description":{
+          "description": {
             "no": "Vi henter data for denne indikatoren fra SSBs KOSTRA program. Desto nyere arealplan, desto høyere respons.",
-            "en": ""
+            "en": "Data for this indicator are obtained from Statistics Norway's KOSTRA programme. The more recent the land-use plan, the higher the response score."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-8VtMJS"
         },
@@ -366,9 +366,9 @@
             "no": "Nedbygging",
             "en": "Land development"
           },
-          "description":{
+          "description": {
             "no": "Planlagt nedbygd areal av myr, naturskog, flomsone og strandsone (SSB, Sabima, Norkart) per areal og per capita.",
-            "en": ""
+            "en": "Planned development of peatlands, natural forests, flood zones and shoreline zones, measured relative to municipal area and per capita. Sources: Statistics Norway, Sabima and Norkart."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-Si7861"
         }
