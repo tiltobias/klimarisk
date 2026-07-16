@@ -18,8 +18,8 @@ function TitlePage({ report }: Props) {
     
       <View style={s.sidebanner} fixed></View>
 
-      <View style={s.heading}>
-        <Text style={s.title} bookmark={l(t.report.title)}>
+      <View style={s.heading} bookmark={l(t.report.title)}>
+        <Text style={s.title}>
           {l(t.report.title)}
         </Text>
 
@@ -34,8 +34,9 @@ function TitlePage({ report }: Props) {
       </View>
 
       
+      <View bookmark={l(t.common.totalRisk)} style={s.titlePage.headingMargin} />
 
-      <View style={s.elementPage.heading}>
+      <View style={[s.elementPage.heading, s.titlePage.heading]}>
         <View style={[s.elementPage.headingColorBox, {
           backgroundColor: report.risk.color,
         }]} />

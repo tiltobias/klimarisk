@@ -42,7 +42,6 @@ export const reportStyles = StyleSheet.create({
     height: 120,
     padding: t.x.mg * 3,
     paddingBottom: 0,
-    marginBottom: t.x.mg * 2,
   },
 
   title: {
@@ -130,6 +129,14 @@ export const reportStyles = StyleSheet.create({
   },
 
   titlePage: {
+
+    headingMargin: {
+      height: t.x.mg * .5,
+    },
+
+    heading: {
+      marginTop: 0,
+    },
 
     chosen: {
       fontSize: t.font.size * 1.1,
