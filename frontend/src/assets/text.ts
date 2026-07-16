@@ -231,6 +231,16 @@ const text = {
           no: "fylket",
         },
       },
+      titlePage: {
+        chosenKommune: {
+          en: "Selected municipality:",
+          no: "Valgt kommune:",
+        },
+        chosenYear: {
+          en: "Selected time period:",
+          no: "Valgt tidsperiode:",
+        },
+      },
     },
   },
 } as const;

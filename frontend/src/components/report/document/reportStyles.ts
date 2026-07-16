@@ -37,11 +37,12 @@ export const reportStyles = StyleSheet.create({
   },
 
   heading: {
-    backgroundColor: t.c.bg3,
+    backgroundColor: t.c.bg2,
     width: "100%",
     height: 120,
     padding: t.x.mg * 3,
     paddingBottom: 0,
+    marginBottom: t.x.mg * 2,
   },
 
   title: {
@@ -125,6 +126,33 @@ export const reportStyles = StyleSheet.create({
     colorBox: {
       height: "100%",
       aspectRatio: "1 / 1",
+    },
+  },
+
+  titlePage: {
+
+    chosen: {
+      fontSize: t.font.size * 1.1,
+    },
+    chosenVal: {
+      fontWeight: t.font.weight.medium,
+      fontSize: t.font.size * 1.2,
+    },
+
+    metric: {
+      display: "flex" as const,
+      flexDirection: "row" as const,
+      alignItems: "center" as const,
+      gap: t.font.size / 2,
+      marginTop: t.x.mg / 10,
+
+      colorBox: {
+        height: t.font.size * 1.2,
+        aspectRatio: 1,
+      },
+      name: {
+
+      },
     },
   },
 
