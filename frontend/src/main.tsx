@@ -3,10 +3,10 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 
-import "@fontsource/source-sans-pro/400.css";
-import "@fontsource/source-sans-pro/600.css";
-import "@fontsource/source-sans-pro/700.css";
-import "@fontsource/raleway/700.css";
+import "@fontsource/source-sans-pro/latin-400.css";
+import "@fontsource/source-sans-pro/latin-600.css";
+import "@fontsource/source-sans-pro/latin-700.css";
+import "@fontsource/raleway/latin-700.css";
 
 
 import { viewMode } from './hooks/getUrlParams.ts';

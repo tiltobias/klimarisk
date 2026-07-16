@@ -12,6 +12,9 @@ export default defineConfig({
           if (id.includes("node_modules")) {
             if (id.includes("leaflet")) return "vendor-leaflet";
             if (id.includes("recharts")) return "vendor-recharts";
+            if (id.includes("@react-pdf")) return "vendor-react-pdf-renderer";
+            if (id.includes("pdfjs")) return "vendor-pdfjs";
+            if (["zustand", "floating-ui", "lucide", "react-pdf"].some(s => id.includes(s))) return "vendor-s";
             return "vendor";
           }
         }
