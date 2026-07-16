@@ -167,20 +167,12 @@ const text = {
       no: "Velg kommunen du ønsker å generere en rapport for.",
     },
     selectYear: {
-      en: "Select year",
-      no: "Velg år",
+      en: "Select time period",
+      no: "Velg tidsperiode",
     },
     selectYearDescription: {
-      en: "Select the year you want to generate a report for.",
-      no: "Velg året du ønsker å generere en rapport for.",
-    },
-    selectDistribution: {
-      en: "Select distribution",
-      no: "Velg fordeling",
-    },
-    selectDistributionDescription: {
-      en: "Select the distribution you want to show in the report.",
-      no: "Velg fordelingen du ønsker å vise i rapporten.",
+      en: "Select the time period you want to generate a report for.",
+      no: "Velg tidsperioden du ønsker å generere en rapport for.",
     },
     download: {
       download: {
