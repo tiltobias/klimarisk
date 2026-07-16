@@ -1,4 +1,4 @@
-export const reportTheme = {
+const thesisTheme = {
 
   font: {
     body: "Source Sans Pro",
@@ -20,7 +20,7 @@ export const reportTheme = {
     bg4: "#888",
 
     text: "#000",
-    text2: "#666",
+    text2: "#888",
 
     accent: "#000",
     accent2: "#444",
@@ -41,4 +41,24 @@ export const reportTheme = {
     aside: 60,
   },
   
+} as const;
+
+const embeddedTheme = {
+  c: {
+    bg1: "#fefeff",
+    bg2: "#e3eff3",
+    bg3: "#cde5ec",
+    bg4: "#63a9be",
+  },
+} as const;
+
+
+import { viewMode } from "../../../hooks/getUrlParams";
+
+export const reportTheme = {
+  ...thesisTheme,
+  c: {
+    ...thesisTheme.c,
+    ...viewMode === "embedded" ? embeddedTheme.c : {},
+  },
 } as const;
