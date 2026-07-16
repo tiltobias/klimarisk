@@ -117,28 +117,3 @@
 }
 
 
-
-
-
-.reportButton {
-  text-align: center;
-  background-color: var(--c-bg2);
-  display: flex;
-  justify-content: center;
-  font-size: 1.2rem;
-}
-
-.reportButton > a {
-  display: flex;
-  padding: 0.5rem 1rem;
-  color: var(--c-text);
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.reportButton > a:hover {
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--c-text);
-}

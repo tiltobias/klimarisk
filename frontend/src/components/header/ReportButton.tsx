@@ -1,7 +1,7 @@
 import useDataStore from '../../hooks/useDataStore';
 import useLanguageStore, { t } from '../../hooks/useLanguageStore';
 import { Link } from 'react-router-dom';
-import { Download } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 function ReportButton() {
   const {
@@ -28,7 +28,7 @@ function ReportButton() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Download size={18} style={{ marginRight: "0.5rem" }} />
+        <FileText size={18} style={{ marginRight: "0.2rem" }} />
         {l(t.details.generateReport)}
       </Link>
     </div>
