@@ -138,6 +138,11 @@ export const reportStyles = StyleSheet.create({
       marginTop: 0,
     },
 
+    navLink: {
+      textDecoration: "none" as const,
+      color: t.c.text,
+    },
+
     chosen: {
       fontSize: t.font.size * 1.1,
     },

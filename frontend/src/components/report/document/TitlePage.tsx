@@ -1,4 +1,4 @@
-import { Page, Text, View } from "@react-pdf/renderer";
+import { Page, Text, View, Link } from "@react-pdf/renderer";
 import { reportStyles as s } from "./reportStyles";
 import type { ReportSnapshot } from "./reportSnapshot";
 import { ordinal } from "../../../hooks/useLanguageStore";
@@ -76,7 +76,7 @@ function TitlePage({ report }: Props) {
 
           <View style={[s.elementPage.titleBox, s.smallTitle]}>
             <Text>
-              {l(element.name)}
+              <Link src={`#${element.key}`} style={s.titlePage.navLink}>{l(element.name)}</Link>
             </Text>
 
             <View style={s.score}>
@@ -98,7 +98,9 @@ function TitlePage({ report }: Props) {
               }]} />
 
               <View style={s.titlePage.metric.name}>
-                <Text>{l(metric.name)}</Text>
+                <Text>
+                  <Link src={`#${metric.key}`} style={s.titlePage.navLink}>{l(metric.name)}</Link>
+                </Text>
               </View>
             </View>
           ))}

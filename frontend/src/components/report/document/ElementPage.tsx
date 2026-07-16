@@ -16,7 +16,7 @@ function ElementPage({ report, element }: Props) {
   } = report;
 
   return (
-    <Page size="A4" style={[s.page, s.elementPage]} bookmark={l(element.name)}>
+    <Page size="A4" style={[s.page, s.elementPage]} bookmark={l(element.name)} id={element.key}>
 
       <Text 
         fixed
@@ -61,7 +61,7 @@ function ElementPage({ report, element }: Props) {
       </View>
 
       {element.metrics.map(metric => (
-        <View key={`${element.key}-${metric.key}`} style={s.elementPage.section} wrap={false} bookmark={l(metric.name)}>
+        <View key={`${element.key}-${metric.key}`} style={s.elementPage.section} wrap={false} bookmark={l(metric.name)} id={metric.key}>
           <View style={[s.elementPage.colorBox, {
             backgroundColor: metric.color,
           }]} />
