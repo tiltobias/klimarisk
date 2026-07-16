@@ -51,7 +51,7 @@ function ElementPage({ report, element }: Props) {
             <Text>{l(element.description)}</Text>
           </View>
 
-          <Text>
+          <Text style={s.ranking}>
             {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
           </Text>
           <Text>
@@ -86,7 +86,7 @@ function ElementPage({ report, element }: Props) {
             <Text style={s.description}>{l(t.report.document.urlLabel)}</Text> <Link src={metric.url}>{metric.url}</Link>
           </Text>
 
-          <Text>
+          <Text style={s.ranking}>
             {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
           </Text>
           <Text>

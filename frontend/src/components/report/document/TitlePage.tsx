@@ -34,7 +34,7 @@ function TitlePage({ report }: Props) {
       </View>
 
       
-      <View bookmark={l(t.common.totalRisk)} style={s.titlePage.headingMargin} />
+      <View bookmark={l(report.risk.name)} style={s.titlePage.headingMargin} />
 
       <View style={[s.elementPage.heading, s.titlePage.heading]}>
         <View style={[s.elementPage.headingColorBox, {
@@ -44,22 +44,22 @@ function TitlePage({ report }: Props) {
         <View style={s.elementPage.headingContent}>
           <View style={[s.elementPage.titleBox, s.title]}>
             <Text>
-              {l(t.common.totalRisk)}
+              {l(report.risk.name)}
             </Text>
 
             <View style={s.score}>
               <Text style={s.titleLabel}>{l(t.report.document.score)}</Text>
-              <View style={s.titleScoreVal}>
+              <View style={s.titlePage.titleScoreVal}>
                 <Text style={s.emph}>{report.risk.value.toFixed(2)}</Text>
               </View> 
             </View>
           </View>
 
           <View style={s.description}>
-            <Text>{report.risk.color}</Text>
+            <Text>{l(report.risk.description)}</Text>
           </View>
 
-          <Text>
+          <Text style={s.ranking}>
             {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(report.risk.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
           </Text>
           <Text>

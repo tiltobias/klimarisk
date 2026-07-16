@@ -101,7 +101,10 @@ export const reportStyles = StyleSheet.create({
 
   url: {
     fontStyle: "normal" as const,
-    marginBottom: t.font.size * .4,
+  },
+
+  ranking: {
+    marginTop: t.font.size * .4,
   },
 
   sidebanner: {
@@ -136,6 +139,11 @@ export const reportStyles = StyleSheet.create({
 
     heading: {
       marginTop: 0,
+    },
+
+    titleScoreVal: {
+      width: t.font.size * 6.8,
+      textAlign: "right" as const,
     },
 
     navLink: {

@@ -1,4 +1,14 @@
 {
+  "risk": {
+    "name": {
+      "en": "Total Risk",
+      "no": "Total Risiko"
+    },
+    "description": {
+      "no": "Samlet indeks for klimarisiko.",
+      "en": ""
+    }
+  },
   "elements": [
     {
       "key": "f",
@@ -7,7 +17,7 @@
         "no": "Fare"
       },
       "description": {
-        "no": "Summen av seks fareindikatorer uten vekting",
+        "no": "Summen av seks fareindikatorer uten vekting.",
         "en": ""
       },
       "metrics": [
@@ -92,7 +102,7 @@
         "no": "Sårbarhet"
       },
       "description": {
-        "no": "Summen av seks sårbarhetsindikatorer uten vekting",
+        "no": "Summen av seks sårbarhetsindikatorer uten vekting.",
         "en": ""
       },
       "metrics": [
@@ -177,7 +187,7 @@
         "no": "Eksponering"
       },
       "description": {
-        "no": "Summen av fem eksponeringsindikatorer uten vekting",
+        "no": "Summen av fem eksponeringsindikatorer uten vekting.",
         "en": ""
       },
       "metrics": [

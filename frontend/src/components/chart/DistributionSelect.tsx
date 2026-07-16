@@ -1,6 +1,6 @@
 import useDataStore, { type ElementKey, type MetricKey, type DistributionKey } from "../../hooks/useDataStore";
 import { Fragment } from "react";
-import useLanguageStore, { t } from "../../hooks/useLanguageStore";
+import useLanguageStore from "../../hooks/useLanguageStore";
 
 function encodeDistributionKey(key: DistributionKey): string {
   if (key.type === "risk") return "risk";
@@ -32,7 +32,7 @@ function DistributionSelect() {
         value={encodeDistributionKey(selectedDistribuion)}
       >
         <option value="risk">
-          {l(t.common.totalRisk)}
+          {l(dataModel?.risk.name)}
         </option>
         {dataModel && dataModel.elements.filter(e => !e.disabled).map(element => (
           <Fragment key={element.key}>

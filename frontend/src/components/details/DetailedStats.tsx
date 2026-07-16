@@ -25,6 +25,7 @@ export type RankElement = {
 }
 export type RankRisk = {
   name: Record<Language, string>;
+  description?: Record<Language, string>;
   rank: number;
   rankFylke: number;
   elements: RankElement[];
@@ -48,7 +49,8 @@ function DetailedStats() {
   const ranks = useMemo(() => {
     if (!yearData || !yearCache || !dataModel || !selectedKommune || !selectedYear) return null;
     const tmp: RankRisk = {
-      name: t.common.totalRisk,
+      name: dataModel.risk.name,
+      description: dataModel.risk.description,
       rank: getDescendingRank(yearCache.byTotalRisk, yearCache.byKommune[selectedKommune].totalRisk),
       rankFylke: getDescendingRank(getFylkeDistribution(selectedKommune, { type: "risk" }, selectedYear)!, yearCache.byKommune[selectedKommune].totalRisk),
       elements: dataModel.elements.filter(e => !e.disabled).map(e => ({

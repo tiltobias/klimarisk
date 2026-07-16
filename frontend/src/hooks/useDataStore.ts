@@ -29,7 +29,13 @@ type YearInfo = {
   description?: Record<Language, string>;
 }
 
+type RiskInfo = {
+  name: Record<Language, string>;
+  description?: Record<Language, string>;
+}
+
 export type DataModel = { 
+  risk: RiskInfo;
   elements: Element[];
   years: YearInfo[];
 };

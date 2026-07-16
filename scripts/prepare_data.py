@@ -56,6 +56,11 @@ def buildDataObject(excel_file_path: str, dm: dict) -> dict:
 # Recreate the data model with only useful information for the frontend
 def cleanDataModel(dm):
     return {
+        "risk": {
+            "name": dm["risk"]["name"],
+            "description": dm["risk"]["description"],
+        },
+
         "elements": [{
             "key": determinant["key"],
             "name": determinant["name"],

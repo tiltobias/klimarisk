@@ -70,6 +70,8 @@ function ReportPage() {
       }),
 
       risk: {
+        ...dataModel.risk,
+        
         color: getRiskColor(selectedKommune, { type: "risk" }),
         value: kommuneCache.totalRisk,
         rank: getDescendingRank(yearCache.byTotalRisk, yearCache.byKommune[selectedKommune].totalRisk),

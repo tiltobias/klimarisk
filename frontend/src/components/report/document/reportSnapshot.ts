@@ -35,9 +35,14 @@ type YearInfo = {
   description?: Record<Language, string>;
 }
 
+type RiskInfo = {
+  name: Record<Language, string>;
+  description?: Record<Language, string>;
+} & StatValues;
+
 type ReportDataModel = { 
   elements: Element[];
-  risk: StatValues;
+  risk: RiskInfo;
   kommune: {
     key: KommuneNr;
     name: string;

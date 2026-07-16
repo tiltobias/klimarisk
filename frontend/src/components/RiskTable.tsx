@@ -154,7 +154,9 @@ function RiskTable() {
               ref={selectedDistribuion.type === "risk" ? selectedColRef : null}
             >
               <button type="button" onClick={() => handleSort("totalRisk")}>
-                {l(t.common.totalRisk)}
+                <Tooltip text={l(dataModel?.risk.description)}>
+                  {l(dataModel?.risk.name)}
+                </Tooltip>
                 <div className="sortIcon">
                   {sortKey === "totalRisk" && (
                     sortAscending ? <ArrowUp /> : <ArrowDown />
