@@ -58,7 +58,7 @@ function TitlePage({ report }: Props) {
             <View style={s.score}>
               <Text style={s.titleLabel}>{l(t.report.document.score)}</Text>
               <View style={s.titlePage.titleScoreVal}>
-                <Text style={s.emph}>{report.risk.value.toFixed(2)}</Text>
+                <Text style={s.emph}>{report.risk.value?.toFixed(2)}</Text>
               </View> 
             </View>
           </View>
@@ -90,7 +90,7 @@ function TitlePage({ report }: Props) {
             <View style={s.score}>
               <Text style={s.smallTitleLabel}>{l(t.report.document.score)}</Text>
               <View style={s.scoreVal}>
-                <Text style={s.emph}>{element.value.toFixed(2)}</Text>
+                <Text style={s.emph}>{element.value?.toFixed(2)}</Text>
               </View>
             </View>
           </View>
