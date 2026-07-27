@@ -42,7 +42,7 @@ function ElementPage({ report, element }: Props) {
             <View style={s.score}>
               <Text style={s.titleLabel}>{l(t.report.document.score)}</Text>
               <View style={s.titleScoreVal}>
-                <Text style={s.emph}>{element.value.toFixed(2)}</Text>
+                <Text style={s.emph}>{element.value?.toFixed(2)}</Text>
               </View> 
             </View>
           </View>
@@ -71,12 +71,14 @@ function ElementPage({ report, element }: Props) {
               {l(metric.name)}
             </Text>
 
-            <View style={s.score}>
-              <Text style={s.smallTitleLabel}>{l(t.report.document.score)}</Text>
-              <View style={s.scoreVal}>
-                <Text style={s.emph}>{metric.value.toFixed(2)}</Text>
+            {metric.value !== undefined && (
+              <View style={s.score}>
+                <Text style={s.smallTitleLabel}>{l(t.report.document.score)}</Text>
+                <View style={s.scoreVal}>
+                  <Text style={s.emph}>{metric.value.toFixed(2)}</Text>
+                </View>
               </View>
-            </View>
+            )}
           </View>
 
           <View style={s.description}>
@@ -85,13 +87,21 @@ function ElementPage({ report, element }: Props) {
           <Text style={s.url}>
             <Text style={s.description}>{l(t.report.document.urlLabel)}</Text> <Link src={metric.url}>{metric.url}</Link>
           </Text>
-
-          <Text style={s.ranking}>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
-          </Text>
-          <Text>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
-          </Text>
+          
+          {metric.value !== undefined ? (
+            <>
+              <Text style={s.ranking}>
+                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+              </Text>
+              <Text>
+                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
+              </Text>
+            </>
+          ) : (
+            <Text style={s.ranking}>
+              {l(t.report.document.undefinedIndicator)}
+            </Text>
+          )}
           
         </View>
       ))}

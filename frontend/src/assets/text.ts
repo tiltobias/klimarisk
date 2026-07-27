@@ -229,6 +229,10 @@ const text = {
           no: "Valgt tidsperiode:",
         },
       },
+      undefinedIndicator: {
+        en: "The municipality has not received a score for this indicator.",
+        no: "Kommunen har ikke fått en skår for denne indikatoren.",
+      },
     },
   },
 } as const;

@@ -51,9 +51,8 @@ function ReportPage() {
           rankFylke: getDescendingRank(getFylkeDistribution(selectedKommune, { type: "metric", key: m.key }, selectedYear)!, yearData.byKommune[selectedKommune][m.key], !!m.invert !== !!e.invert)
 
         })).sort((a, b) => {
-          const aVal = a.invert ? 100 - kommuneData[a.key] : kommuneData[a.key];
-          const bVal = b.invert ? 100 - kommuneData[b.key] : kommuneData[b.key];
-          if (e.invert) return (aVal - bVal);
+          const aVal = a.value === undefined ? -Infinity : !!a.invert !== !!e.invert ? 100 - kommuneData[a.key] : kommuneData[a.key];
+          const bVal = b.value === undefined ? -Infinity : !!b.invert !== !!e.invert ? 100 - kommuneData[b.key] : kommuneData[b.key];
           return -(aVal - bVal)
         }),
 

@@ -4,7 +4,7 @@ import { type Language, t } from "../../../hooks/useLanguageStore";
 
 type StatValues = {
   color: string;
-  value: number;
+  value?: number;
   rank: number;
   rankFylke: number;
 }
