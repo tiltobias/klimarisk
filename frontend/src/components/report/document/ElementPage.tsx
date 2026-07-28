@@ -42,7 +42,7 @@ function ElementPage({ report, element }: Props) {
             <View style={s.score}>
               <Text style={s.titleLabel}>{l(t.report.document.score)}</Text>
               <View style={s.titleScoreVal}>
-                <Text style={s.emph}>{element.value?.toFixed(2)}</Text>
+                <Text style={s.emph}>{element.value?.toFixed()}</Text>
               </View> 
             </View>
           </View>
@@ -75,7 +75,7 @@ function ElementPage({ report, element }: Props) {
               <View style={s.score}>
                 <Text style={s.smallTitleLabel}>{l(t.report.document.score)}</Text>
                 <View style={s.scoreVal}>
-                  <Text style={s.emph}>{metric.value.toFixed(2)}</Text>
+                  <Text style={s.emph}>{metric.value.toFixed()}</Text>
                 </View>
               </View>
             )}

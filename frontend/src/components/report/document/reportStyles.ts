@@ -65,11 +65,11 @@ export const reportStyles = StyleSheet.create({
     fontFamily: t.font.body,
   },
   scoreVal: {
-    width: t.font.size * 3.5,
+    width: t.font.size * 2,
     textAlign: "right" as const,
   },
   titleScoreVal: {
-    width: t.font.size * 6.2,
+    width: t.font.size * 3.4,
     textAlign: "right" as const,
   },
 
@@ -112,7 +112,7 @@ export const reportStyles = StyleSheet.create({
     },
 
     titleScoreVal: {
-      width: t.font.size * 6.8,
+      width: t.font.size * 4,
       textAlign: "right" as const,
     },
 
