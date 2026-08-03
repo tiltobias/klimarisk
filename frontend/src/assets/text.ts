@@ -200,11 +200,11 @@ const text = {
       ranked: {
         p1: {
           en: "Ranked",
-          no: "Rangert",
+          no: "Rangert som nr.",
         },
         p2: {
-          en: "worst out of",
-          no: "verst av",
+          en: "out of",
+          no: "av",
         },
         p3: {
           en: "municipalities in",
@@ -215,8 +215,12 @@ const text = {
           no: "Norge",
         },
         fylke: {
-          en: "the county",
+          en: "its county",
           no: "fylket",
+        },
+        p4: {
+          en: "(1 = highest climate risk)",
+          no: "(1 = høyest klimarisiko)",
         },
       },
       titlePage: {

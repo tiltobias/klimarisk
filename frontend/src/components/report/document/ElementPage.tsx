@@ -52,10 +52,10 @@ function ElementPage({ report, element }: Props) {
           </View>
 
           <Text style={s.ranking}>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)} {l(t.report.document.ranked.p4)}.
           </Text>
           <Text>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(element.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)} {l(t.report.document.ranked.p4)}.
           </Text>
         </View>
       </View>
@@ -91,10 +91,10 @@ function ElementPage({ report, element }: Props) {
           {metric.value !== undefined ? (
             <>
               <Text style={s.ranking}>
-                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)} {l(t.report.document.ranked.p4)}.
               </Text>
               <Text>
-                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
+                {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(metric.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)} {l(t.report.document.ranked.p4)}.
               </Text>
             </>
           ) : (

@@ -41,7 +41,7 @@ export {text as t};
 
 export function ordinal(n: number, language: Language): string {
   if (language === "no") {
-    return `${n}.`;
+    return `${n}`; // Don't use ordinal suffixes for current Norwegian phrases.
   }
 
   const mod100 = n % 100;

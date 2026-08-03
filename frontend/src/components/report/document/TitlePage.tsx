@@ -68,10 +68,10 @@ function TitlePage({ report }: Props) {
           </View>
 
           <Text style={s.ranking}>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(report.risk.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)}.
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(report.risk.rank, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneNorge}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.norge)} {l(t.report.document.ranked.p4)}.
           </Text>
           <Text>
-            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(report.risk.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)}.
+            {l(t.report.document.ranked.p1)} <Text style={s.emph}>{ordinal(report.risk.rankFylke, report.language)}</Text> {l(t.report.document.ranked.p2)} <Text style={s.emph}>{report.kommune.numKommuneFylke}</Text> {l(t.report.document.ranked.p3)} {l(t.report.document.ranked.fylke)} {l(t.report.document.ranked.p4)}.
           </Text>
         </View>
       </View>
