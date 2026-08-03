@@ -17,8 +17,8 @@
         "no": "Fare"
       },
       "description": {
-        "no": "Summen av seks fareindikatorer uten vekting, normalisert til en skala fra 0 til 100. Mørk farge betyr høy fare, lys farge betyr lav fare.",
-        "en": "The unweighted sum of six hazard indicators, normalized to a scale from 0 to 100. Darker colors indicate higher hazard, while lighter colors indicate lower hazard."
+        "no": "Gjennomsnittet seks fareindikatorer, normalisert til en skala fra 0 til 100. Mørk farge betyr høy fare, lys farge betyr lav fare.",
+        "en": "The mean of six hazard indicators, normalized to a scale from 0 to 100. Darker colors indicate higher hazard, while lighter colors indicate lower hazard."
       },
       "metrics": [
         {
@@ -102,8 +102,8 @@
         "no": "Sårbarhet"
       },
       "description": {
-        "no": "Summen av seks sårbarhetsindikatorer uten vekting, normalisert til en skala fra 0 til 100. Mørk farge betyr høy sårbarhet, lys farge betyr lav sårbarhet.",
-        "en": "The unweighted sum of six vulnerability indicators, normalized to a scale from 0 to 100. Darker colors indicate higher vulnerability, while lighter colors indicate lower vulnerability."
+        "no": "Gjennomsnittet av seks sårbarhetsindikatorer, normalisert til en skala fra 0 til 100. Mørk farge betyr høy sårbarhet, lys farge betyr lav sårbarhet.",
+        "en": "The mean of six vulnerability indicators, normalized to a scale from 0 to 100. Darker colors indicate higher vulnerability, while lighter colors indicate lower vulnerability."
       },
       "metrics": [
         {
@@ -187,8 +187,8 @@
         "no": "Eksponering"
       },
       "description": {
-        "no": "Summen av fem eksponeringsindikatorer uten vekting, normalisert til en skala fra 0 til 100. Mørk farge betyr høy eksponering, lys farge betyr lav eksponering.",
-        "en": "The unweighted sum of five exposure indicators, normalized to a scale from 0 to 100. Darker colors indicate higher exposure, while lighter colors indicate lower exposure."
+        "no": "Gjennomsnittet av fem eksponeringsindikatorer, normalisert til en skala fra 0 til 100. Mørk farge betyr høy eksponering, lys farge betyr lav eksponering.",
+        "en": "The mean of five exposure indicators, normalized to a scale from 0 to 100. Darker colors indicate higher exposure, while lighter colors indicate lower exposure."
       },
       "metrics": [
         {
