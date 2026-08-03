@@ -260,7 +260,7 @@
         "no": "Respons"
       },
       "description": {
-        "no": "Gjennomsnitt av opptil seks responsindikatorer med verdi, normalisert til en skala fra 0 til 100. Siden det er mangel på respons som bidrar til økt klimarisiko snur vi indikatoren for å bygge klimarisikoindeksen. Mørk farge betyr lav respons, lys farge betyr høy respons.",
+        "no": "Gjennomsnitt av opptil seks responsindikatorer med verdi, normalisert til en skala fra 0 til 100. Siden det er mangelen på respons som bidrar til økt klimarisiko, snur vi indikatoren for å bygge klimarisikoindeksen. Mørk farge betyr lav respons, lys farge betyr høy respons.",
         "en": "The mean of up to six response indicators with available values, normalized to a scale from 0 to 100. Because a lack of response contributes to increased climate risk, the determinant is inverted when constructing the climate risk index. Darker colors indicate lower response, while lighter colors indicate higher response."
       },
       "invert": true,
@@ -320,8 +320,8 @@
             "en": "Land-Use plan age"
           },
           "description": {
-            "no": "Vi henter data for denne indikatoren fra SSBs KOSTRA program. Desto nyere arealplan, desto høyere respons.",
-            "en": "Data for this indicator are obtained from Statistics Norway's KOSTRA programme. The more recent the land-use plan, the higher the response score."
+            "no": "Antall år siden kommuneplanens arealdel ble vedtatt (SSB). Desto nyere arealplan, desto høyere respons.",
+            "en": "The number of years since the municipal plan's land-use section was adopted (Statistics Norway). The more recent the land-use plan, the higher the response score."
           },
           "url": "https://storymaps.arcgis.com/stories/15fe5d46ae09472789e9904c805061f1#ref-n-8VtMJS"
         },
