@@ -83,12 +83,14 @@ def cleanDataModel(dm):
     }
 
 
+from pathlib import Path
 
 if __name__ == "__main__":
-    in_path_excel = "./scripts/tblKommunerangering2026.xlsx"
-    in_path_model = "./scripts/kommune_data_model.json"
-    out_path = "./frontend/public/data/kommune_data.json"
-    out_path_model = "./frontend/public/data/kommune_data_model.json"
+    root_folder = Path(__file__).resolve().parent.parent
+    in_path_excel = root_folder / "scripts" / "source_data.xlsx"
+    in_path_model = root_folder / "scripts" / "source_data_model.json"
+    out_path = root_folder / "frontend" / "public" / "data" / "kommune_data.json"
+    out_path_model = root_folder / "frontend" / "public" / "data" / "kommune_data_model.json"
 
     # Load data model
     dm = json.load(open(in_path_model, 'r', encoding='utf-8'))
