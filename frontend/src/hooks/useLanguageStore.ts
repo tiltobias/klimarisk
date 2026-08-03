@@ -1,8 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import text from "../assets/text";
+import { viewMode } from "./getUrlParams";
 
 export type Language = "en" | "no";
+
+const defaultLanguage: Language = viewMode === "embedded" ? "no" : "en";
+const languageStoreKey = viewMode === "embedded" ? "language-store-embedded" : "language-store";
 
 interface LanguageStore {
   language: Language;
@@ -15,7 +19,7 @@ const useLanguageStore = create<LanguageStore>()(
   persist(
     (set, get) => ({
 
-      language: "en",
+      language: defaultLanguage,
 
       setLanguage: (lang) => set({ language: lang }),
 
@@ -23,7 +27,7 @@ const useLanguageStore = create<LanguageStore>()(
 
     }),
     {
-      name: "language-store",
+      name: languageStoreKey,
       partialize: (state) => ({
         language: state.language,
       }),
