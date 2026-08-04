@@ -200,6 +200,28 @@ export const reportStyles = StyleSheet.create({
     },
   },
 
+  documentation: {
+    text: {
+      fontSize: t.font.size * 1.1,
+      marginTop: t.x.mg,
+      marginLeft: t.x.aside + t.x.mg,
+      marginRight: t.x.aside + t.x.mg,
+      display: "flex" as const,
+      flexDirection: "row" as const,
+      alignItems: "flex-start" as const,
+      justifyContent: "flex-start" as const,
+      gap: t.x.mg / 2,
+    },
+    bullet: {
+      borderRadius: 1000,
+      aspectRatio: "1 / 1",
+      backgroundColor: t.c.text,
+      opacity: .7,
+      width: t.font.size * .6,
+      marginTop: t.font.size * .45,
+    },
+  },
+
 });
 
 // Triggers vite HMR updates in dev mode

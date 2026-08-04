@@ -38,6 +38,7 @@ export type DataModel = {
   risk: RiskInfo;
   elements: Element[];
   years: YearInfo[];
+  documentation?: Record<Language, string>[];
 };
 
 type KommuneData = {
