@@ -52,7 +52,7 @@
         "no": "Fare"
       },
       "description": {
-        "no": "Gjennomsnittet seks fareindikatorer, normalisert til en skala fra 0 til 100. Mørk farge betyr høy fare, lys farge betyr lav fare.",
+        "no": "Gjennomsnittet av seks fareindikatorer, normalisert til en skala fra 0 til 100. Mørk farge betyr høy fare, lys farge betyr lav fare.",
         "en": "The mean of six hazard indicators, normalized to a scale from 0 to 100. Darker colors indicate higher hazard, while lighter colors indicate lower hazard."
       },
       "indicators": [
@@ -295,7 +295,7 @@
         "no": "Respons"
       },
       "description": {
-        "no": "Gjennomsnitt av opptil seks responsindikatorer med verdi, normalisert til en skala fra 0 til 100. Siden det er mangelen på respons som bidrar til økt klimarisiko, snur vi indikatoren for å bygge klimarisikoindeksen. Mørk farge betyr lav respons, lys farge betyr høy respons.",
+        "no": "Gjennomsnittet av opptil seks responsindikatorer med verdi, normalisert til en skala fra 0 til 100. Siden det er mangelen på respons som bidrar til økt klimarisiko, snur vi indikatoren for å bygge klimarisikoindeksen. Mørk farge betyr lav respons, lys farge betyr høy respons.",
         "en": "The mean of up to six response indicators with available values, normalized to a scale from 0 to 100. Because a lack of response contributes to increased climate risk, the determinant is inverted when constructing the climate risk index. Darker colors indicate lower response, while lighter colors indicate higher response."
       },
       "inverted": true,
