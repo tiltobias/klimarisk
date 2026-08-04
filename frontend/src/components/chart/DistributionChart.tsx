@@ -19,6 +19,7 @@ type ChartPoint = {
   intervalStart?: number;
   intervalEnd?: number;
   cosmetic?: boolean;
+  isLastInterval?: boolean;
 };
 
 function buildHistogram(values: number[], bins: number, fylkeValues: number[]): ChartPoint[] {
@@ -52,6 +53,7 @@ function buildHistogram(values: number[], bins: number, fylkeValues: number[]): 
     countCounty: fylkeCounts[i],
     intervalStart: min + i * step,
     intervalEnd: min + (i + 1) * step,
+    ...(i === bins - 1 ? { isLastInterval: true } : {}),
   }));
 }
 
@@ -232,7 +234,7 @@ function DistributionChart({ distributionKey, bins = 25 }: Props) {
               return (
                 <div className="customTooltip">
                   <div>
-                    {`${l(t.chart.tooltip.interval)}: ${payload.intervalStart?.toFixed(0)} - ${payload.intervalEnd?.toFixed(0)}`}
+                    {`${l(t.chart.tooltip.interval)}: ${payload.intervalStart?.toFixed(0)} – ${payload.isLastInterval ? "" : "<"}${payload.intervalEnd?.toFixed(0)}`}
                   </div>
                   <div style={{ color: "var(--c-norge)" }}>
                     {`${l(t.chart.tooltip.norway)}: ${payload.count} ${l(t.chart.tooltip.kommuner)}`}
