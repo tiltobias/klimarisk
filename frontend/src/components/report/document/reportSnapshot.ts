@@ -50,6 +50,7 @@ type ReportDataModel = {
     numKommuneFylke: number;
   };
   year: YearInfo;
+  documentation?: Record<Language, string>[];
 };
 
 

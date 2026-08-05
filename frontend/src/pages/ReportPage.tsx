@@ -83,6 +83,8 @@ function ReportPage() {
       },
       year: dataModel.years.find(year => year.key === selectedYear)!,
 
+      documentation: dataModel.documentation,
+
     } as const;
 
 

@@ -3,6 +3,7 @@ import { Document } from "@react-pdf/renderer";
 import type { ReportSnapshot } from "./reportSnapshot";
 import ElementPage from "./ElementPage";
 import TitlePage from "./TitlePage";
+import DocumentationPage from "./DocumentationPage";
 
 
 interface Props {
@@ -32,6 +33,10 @@ function MunicipalityReportDocument({ report }: Props) {
       {report.elements.map(element => (
         <ElementPage report={report} element={element} key={element.key} />
       ))}
+
+      {report.documentation && report.documentation.length > 0 && (
+        <DocumentationPage report={report} />
+      )}
 
     </Document>
   );

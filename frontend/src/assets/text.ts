@@ -237,6 +237,12 @@ const text = {
         en: "The municipality has not received a score for this indicator.",
         no: "Kommunen har ikke fått en skår for denne indikatoren.",
       },
+      documentationPage: {
+        title: {
+          en: "Documentation",
+          no: "Dokumentasjon",
+        },
+      },
     },
   },
 } as const;
