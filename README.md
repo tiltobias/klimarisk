@@ -1,10 +1,10 @@
-# Klimarisk dashboard
+# Klimarisk Dashboard
 
-This repository contains the source code for a web-based dashboard developed as part of a [master thesis in Geomatics at NTNU](https://www.ntnu.edu/studies/courses/TBA4925/2025). The dashboard is used to explore municipal climate risk data for Norway, based on [climate risk data from the Noradapt climate service](https://klimamonitor.no/analysar/kommunerangering-2024).
+This repository contains the source code for a web-based dashboard for exploring **municipality-level climate risk in Norway**. The application was originally developed as part of a [master's thesis in Geomatics at NTNU](https://www.ntnu.edu/studies/courses/TBA4925/2025), using [climate risk data from the Noradapt climate service](https://klimamonitor.no/analysar/kommunerangering-2024).
 
-The dashboard is designed to make municipal climate risk data easier to inspect, compare, and understand through linked views such as maps, tables, charts, rankings, and indicator-level controls.
+The dashboard is designed to make composite climate risk data easier to inspect, compare, and understand. It combines coordinated views including maps, distribution charts, rankings, tables, and indicator-level information, allowing users to move between the overall climate risk score and its underlying determinants and indicators.
 
-For the specific repository version described in the master thesis, see the [thesis-submission Git tag](https://github.com/tiltobias/klimarisk/tree/thesis-submission).
+For the specific repository version described in the master's thesis, see the [`thesis-submission` Git tag](https://github.com/tiltobias/klimarisk/tree/thesis-submission).
 
 ## Online application
 
@@ -12,20 +12,28 @@ The dashboard is hosted by GitHub Pages and is available online at:
 
 [tiltobias.github.io/klimarisk](https://tiltobias.github.io/klimarisk/)
 
-This online deployment reflects the current deployed version of the application. To run the project locally, download or clone this repository and follow the guide in [Running locally](#running-locally).
+The online deployment reflects the current version of the application.
 
-## Related data repository
+### Embedded mode
 
-The processed dashboard data is stored in a separate repository:
+Add `?embed` to use the version intended for embedding in [Klimamonitor.no](https://klimamonitor.no/klimarisiko/), including its corresponding color scheme:
+
+```text
+https://tiltobias.github.io/klimarisk/?embed
+```
+
+## Data
+
+The processed data used by the dashboard is maintained in a separate repository:
 
 [github.com/tiltobias/klimarisk-data](https://github.com/tiltobias/klimarisk-data)
 
-The relation between the two repositories is:
+The two repositories have separate responsibilities:
 
-- `klimarisk` contains the dashboard source code and the preprocessing script.
-- `klimarisk-data` contains processed data files used by the deployed dashboard, such as JSON and GeoJSON files.
+* `klimarisk` contains the dashboard application and source code.
+* `klimarisk-data` contains the processed JSON and GeoJSON files used by the deployed dashboard.
 
-This separation makes it clear that data maintainers can update the dashboard data without needing to update the main dashboard frontend code.
+Keeping the application and data separate allows the climate risk dataset to be updated without requiring changes to the dashboard frontend.
 
 ## Repository structure
 
@@ -39,7 +47,7 @@ klimarisk/
 
 Running the project locally is useful for development, testing, or inspecting a specific checked-out version of the dashboard.
 
-You need to have Node.js installed on your computer. Installing Node.js also installs `npm`, which is used to install and run the frontend application.
+You need to have [Node.js](https://nodejs.org/) installed. Node.js also installs `npm`, which is used to install the frontend dependencies and start the development server.
 
 Open a terminal in the repository folder and run:
 
@@ -57,64 +65,63 @@ http://localhost:5173/
 
 Open this address in a web browser to view the dashboard.
 
-### Local data when running the dashboard locally
+### Using local data
 
-When running the dashboard locally, the frontend should normally use the local data files that belong to the checked-out version of the repository. This helps ensure that the application is run with the same data structure as the code version being inspected.
+When working with an older commit or a specific tagged version, the frontend should normally use the local data files belonging to that version. This ensures that the application is run against the data structure it was developed for.
 
-The data URL logic is defined in:
+The data source is configured in:
 
 ```text
 frontend/src/hooks/getPublicUrl.ts
 ```
 
-In the `getDataUrl` function, the local data URL should be active when running the dashboard locally:
+In `getDataUrl`, enable the local data path:
 
 ```ts
 export const getDataUrl = (fileName: string) => {
-  return getPublicUrl(`data/${fileName}`); // For local development, place data files in public/data/
-  // return `https://tiltobias.github.io/klimarisk-data/${fileName}`; // For production, fetch from GitHub Pages
+  return getPublicUrl(`data/${fileName}`); // Local development: data files in public/data/
+  // return `https://tiltobias.github.io/klimarisk-data/${fileName}`; // Production data
 }
 ```
 
-For older commits, it may be necessary to check or change this function so that the frontend uses the corresponding local data files instead of newer files from the external data repository. If the production URL is active, simply swap the commented line so that the local `getPublicUrl` line is active and the external GitHub Pages URL is commented out.
+If the production URL is active, swap the commented lines so that the local `getPublicUrl` path is used instead.
+
+This can be particularly important when checking out older commits, since the current files in `klimarisk-data` may use a newer data structure than the application version being inspected.
 
 ## Running the Python preprocessing script
 
-Running the preprocessing script is only necessary when the source climate risk workbook or data model has been changed and the processed dashboard data should be regenerated.
+The preprocessing script only needs to be run when the source climate risk workbook or data model has changed and the processed dashboard data should be regenerated.
 
-You need to have Python installed on your computer.
+You need to have Python installed.
 
-From the project root, create a virtual environment:
+From the repository root, create a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-Activate the virtual environment.
-
-On Windows:
+Activate it on Windows:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-On macOS or Linux:
+Or on macOS and Linux:
 
 ```bash
 source .venv/bin/activate
 ```
 
-Install the required Python packages:
+Install the required packages:
 
 ```bash
 pip install -r scripts/requirements.txt
 ```
 
-Run the preprocessing script:
+Then run the preprocessing script:
 
 ```bash
 python scripts/prepare_data.py
 ```
 
-The script prepares the data files used by the dashboard frontend.
-
+The script prepares the processed data files used by the dashboard frontend.
