@@ -7,6 +7,7 @@ header {
   padding-top: calc(var(--grid-gap) / 2);
   box-sizing: border-box;
   user-select: none;
+  line-height: 1em;
 }
 
 header h1 {
@@ -51,6 +52,7 @@ header h1 a {
   align-items: center;
   justify-content: center;
   font-weight: var(--font-weight-normal);
+  line-height: unset;
 }
 .headerControls .selected {
   font-weight: var(--font-weight-bold);
