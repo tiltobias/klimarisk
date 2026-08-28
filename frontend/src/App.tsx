@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useDataStore from './hooks/useDataStore'
 import Dashboard from './pages/Dashboard';
 import ReportPage from './pages/ReportPage';
+import useLanguageStore from './hooks/useLanguageStore';
 
 function App() {
 
@@ -10,10 +11,16 @@ function App() {
     fetchData,
   } = useDataStore();
 
+  const { language } = useLanguageStore();
+
   // Fetch data on mount, only once
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  useEffect(() => {
+    document.documentElement.lang = language === "no" ? "nb" : "en";
+  }, [language]);
 
 
   return (
